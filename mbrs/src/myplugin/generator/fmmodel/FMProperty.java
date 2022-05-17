@@ -11,20 +11,42 @@ public class FMProperty extends FMElement  {
 	//Multiplicity (upper value) 
 	private Integer upper;
 	
+	private boolean association;
+	
 	/** @ToDo: Add length, precision, unique... whatever is needed for ejb class generation
 	 * Also, provide these meta-attributes or tags in the modeling languange metaclass or 
 	 * stereotype */
-
 	
-	public FMProperty(String name, String type, String visibility, int lower, int upper) {
+	
+	public FMProperty(String name, String type, String visibility, int lower, int upper, boolean association) {
 		super(name);
 		this.type = type;
 		this.visibility = visibility;
 		
 		this.lower = lower;
-		this.upper = upper;		
+		this.upper = upper;	
+		this.association = association;
 	}
 	
+	
+	public FMProperty(String name, String type, String visibility, Integer lower, Integer upper) {
+		super(name);
+		this.type = type;
+		this.visibility = visibility;
+		this.lower = lower;
+		this.upper = upper;
+	}
+
+
+	public boolean isAssociation() {
+		return association;
+	}
+
+	public void setAssociation(boolean association) {
+		this.association = association;
+	}
+
+
 	public String getType() {
 		return type;
 	}

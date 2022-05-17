@@ -19,6 +19,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import myplugin.analyzer.AnalyzeException;
 import myplugin.analyzer.ModelAnalyzer;
 import myplugin.generator.EJBGenerator;
+import myplugin.generator.MapperGenerator;
 import myplugin.generator.ServiceGenerator;
 import myplugin.generator.ServiceImplGenerator;
 import myplugin.generator.fmmodel.FMModel;
@@ -56,6 +57,7 @@ class GenerateAction extends MDAction{
 //			exportToXml();
 			generateService(analyzer, root, generatorOptions);
 			generateServiceImpl(analyzer, root, generatorOptions);
+			generateMapper(analyzer, root, generatorOptions);
 			
 		} catch (AnalyzeException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
@@ -85,7 +87,17 @@ class GenerateAction extends MDAction{
 				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
 		exportToXml();
 	}
-	
+	private void generateMapper(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions)
+			throws AnalyzeException {
+		analyzer = new ModelAnalyzer(root,"uns.ftn.mbrs.mapper");
+		analyzer.prepareModel();
+		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("MapperGenerator");
+		MapperGenerator mapperGenerator = new MapperGenerator(generatorOptions);
+		mapperGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
+		exportToXml();
+	}
 	private void exportToXml() {
 		if (JOptionPane.showConfirmDialog(null, "Do you want to save FM Model?") == 
 			JOptionPane.OK_OPTION)

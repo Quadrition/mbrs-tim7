@@ -129,9 +129,13 @@ public class ModelAnalyzer {
 			
 		int lower = p.getLower();
 		int upper = p.getUpper();
+		boolean association = false;
+		
+		if (p.getAssociation() != null)
+			association = true;
 		
 		FMProperty prop = new FMProperty(attName, typeName, p.getVisibility().toString(), 
-				lower, upper);
+				lower, upper, association);
 		return prop;		
 	}	
 	
