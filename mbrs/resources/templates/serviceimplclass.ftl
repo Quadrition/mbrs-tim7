@@ -83,6 +83,7 @@ public class ${class.name}ServiceImpl implements ${class.name}Service{
 			throw new Exception("${class.name} doesn't exist");
 		}
 		${class.name?uncap_first}Repository.delete(existing);
+		
 		return existing;
 	}
 }
