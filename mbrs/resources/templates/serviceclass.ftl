@@ -10,7 +10,7 @@ public interface ${class.name}Service {
 	List<${class.name}> findAll();
 	
 	<#list properties as property>
-		<#if property.name != "id" && property.upper == 1>
+		<#if property.name != "id" && property.upper == 1 && !property.association>
 	List<${class.name}> findBy${property.name?cap_first}(${property.type} ${property.name});
 		</#if>
 	</#list>
