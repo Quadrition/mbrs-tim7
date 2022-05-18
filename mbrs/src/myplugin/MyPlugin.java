@@ -34,6 +34,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		serviceOptions();
 		serviceImplOptions();
 		mapperOptions();
+		modelOptions();
 	}
 	
 	private void test() {
@@ -58,6 +59,12 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		GeneratorOptions ejbOptions = new GeneratorOptions("c:/temp", "mapperclass", "templates", "{0}Mapper.java", true, "uns.ftn.mbrs.mapper"); 				
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("MapperGenerator", ejbOptions);
 		ejbOptions.setTemplateDir(pluginDir + File.separator + ejbOptions.getTemplateDir()); //apsolutna putanja
+	}
+	
+	private void modelOptions() {
+		GeneratorOptions modelOptions = new GeneratorOptions("c:/temp", "modelclass", "templates", "{0}.java", true, "uns.ftn.mbrs.model"); 				
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ModelGenerator", modelOptions);
+		modelOptions.setTemplateDir(pluginDir + File.separator + modelOptions.getTemplateDir()); //apsolutna putanja
 	}
 	
 	private NMAction[] getSubmenuActions()

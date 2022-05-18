@@ -18,8 +18,8 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import myplugin.analyzer.AnalyzeException;
 import myplugin.analyzer.ModelAnalyzer;
-import myplugin.generator.EJBGenerator;
 import myplugin.generator.MapperGenerator;
+import myplugin.generator.ModelGenerator;
 import myplugin.generator.ServiceGenerator;
 import myplugin.generator.ServiceImplGenerator;
 import myplugin.generator.fmmodel.FMModel;
@@ -55,6 +55,7 @@ class GenerateAction extends MDAction{
 //			JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() +
 //					                         ", package: " + go.getFilePackage());
 //			exportToXml();
+			generateModel(analyzer, root, generatorOptions);
 			generateService(analyzer, root, generatorOptions);
 			generateServiceImpl(analyzer, root, generatorOptions);
 			generateMapper(analyzer, root, generatorOptions);
@@ -98,6 +99,18 @@ class GenerateAction extends MDAction{
 				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
 		exportToXml();
 	}
+	private void generateModel(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions)
+			throws AnalyzeException {
+		analyzer = new ModelAnalyzer(root,"uns.ftn.mbrs.model");
+		analyzer.prepareModel();
+		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ModelGenerator");
+		ModelGenerator modelGenerator = new ModelGenerator(generatorOptions);
+		modelGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
+		exportToXml();
+	}
+	
 	private void exportToXml() {
 		if (JOptionPane.showConfirmDialog(null, "Do you want to save FM Model?") == 
 			JOptionPane.OK_OPTION)
