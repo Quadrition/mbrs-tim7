@@ -35,6 +35,8 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		serviceImplOptions();
 		mapperOptions();
 		modelOptions();
+		enumOptions();
+		repoOptions();
 	}
 	
 	private void test() {
@@ -65,6 +67,19 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		GeneratorOptions modelOptions = new GeneratorOptions("c:/temp", "modelclass", "templates", "{0}.java", true, "uns.ftn.mbrs.model"); 				
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ModelGenerator", modelOptions);
 		modelOptions.setTemplateDir(pluginDir + File.separator + modelOptions.getTemplateDir()); //apsolutna putanja
+	}
+	private void enumOptions() {
+		GeneratorOptions enumOptions = new GeneratorOptions("c:/temp", "enum", "templates", "{0}.java", true, "uns.ftn.mbrs.model"); 				
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("EnumGenerator", enumOptions);
+		enumOptions.setTemplateDir(pluginDir + File.separator + enumOptions.getTemplateDir());
+		
+	}
+	
+	private void repoOptions() {
+		GeneratorOptions enumOptions = new GeneratorOptions("c:/temp", "repositoryclass", "templates", "{0}Repository.java", true, "uns.ftn.mbrs.repository"); 				
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("RepoGenerator", enumOptions);
+		enumOptions.setTemplateDir(pluginDir + File.separator + enumOptions.getTemplateDir());
+		
 	}
 	
 	private NMAction[] getSubmenuActions()

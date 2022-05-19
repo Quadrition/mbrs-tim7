@@ -26,7 +26,7 @@ public class TestPackageGeneration {
 		
 		List<FMClass> classes = FMModel.getInstance().getClasses();
 		
-		classes.clear();
+	/*	classes.clear();
 		
 		FMClass cl = new FMClass ("Preduzece", "ejb.orgsema", "public");
 		cl.addProperty(new FMProperty("sifraPreduzeca", "String", "private", 1, 1));
@@ -60,7 +60,7 @@ public class TestPackageGeneration {
 		cl.addProperty(new FMProperty("sifraKartice", "String", "private", 1, 1));
 		cl.addProperty(new FMProperty("nazivKartice", "String", "private", 1, 1));
 		
-		classes.add(cl);		
+		classes.add(cl);	*/	
 	}
 	
 	public void testGenerator() {

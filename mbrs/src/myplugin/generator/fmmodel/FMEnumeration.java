@@ -20,6 +20,13 @@ public class FMEnumeration extends FMType {
 	public void addValue(String value){
 		Values.add(value);		
 	}
+	public ArrayList<String> getValues() {
+		return Values;
+	}
+
+	public void setValues(ArrayList<String> values) {
+		Values = values;
+	}
 	
 	public int getValuesCount(){
 		return Values.size();

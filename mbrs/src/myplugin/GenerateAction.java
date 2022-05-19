@@ -20,9 +20,11 @@ import myplugin.analyzer.AnalyzeException;
 import myplugin.analyzer.ModelAnalyzer;
 import myplugin.generator.MapperGenerator;
 import myplugin.generator.ModelGenerator;
+import myplugin.generator.RepoGenerator;
 import myplugin.generator.ServiceGenerator;
 import myplugin.generator.ServiceImplGenerator;
 import myplugin.generator.fmmodel.FMModel;
+import myplugin.generator.options.EnumGenerator;
 import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.ProjectOptions;
 
@@ -55,7 +57,9 @@ class GenerateAction extends MDAction{
 //			JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() +
 //					                         ", package: " + go.getFilePackage());
 //			exportToXml();
+			generateRepo(analyzer, root, generatorOptions);
 			generateModel(analyzer, root, generatorOptions);
+			generateEnum(analyzer, root, generatorOptions);
 			generateService(analyzer, root, generatorOptions);
 			generateServiceImpl(analyzer, root, generatorOptions);
 			generateMapper(analyzer, root, generatorOptions);
@@ -109,6 +113,29 @@ class GenerateAction extends MDAction{
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
 		exportToXml();
+	}
+	private void generateEnum(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
+		analyzer = new ModelAnalyzer(root, "uns.ftn.mbrs.model");
+		analyzer.prepareModel();
+		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EnumGenerator");
+		EnumGenerator enumGenerator = new EnumGenerator(generatorOptions);
+		enumGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
+		exportToXml();
+		
+	}
+	
+	private void generateRepo(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
+		analyzer = new ModelAnalyzer(root, "uns.ftn.mbrs.repository");
+		analyzer.prepareModel();
+		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("RepoGenerator");
+		RepoGenerator repoGenerator = new RepoGenerator(generatorOptions);
+		repoGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
+		exportToXml();
+		
 	}
 	
 	private void exportToXml() {

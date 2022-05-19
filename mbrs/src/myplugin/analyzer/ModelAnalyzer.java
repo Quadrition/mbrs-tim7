@@ -7,6 +7,7 @@ import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMEnumeration;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.fmmodel.FMProperty;
+import myplugin.generator.fmmodel.FMType;
 
 import com.nomagic.uml2.ext.jmi.helpers.ModelHelper;
 import com.nomagic.uml2.ext.jmi.helpers.StereotypesHelper;
@@ -133,8 +134,8 @@ public class ModelAnalyzer {
 		
 		if (p.getAssociation() != null)
 			association = true;
-		
-		FMProperty prop = new FMProperty(attName, typeName, p.getVisibility().toString(), 
+		String typePackage = attType.getPackage().getName();
+		FMProperty prop = new FMProperty(attName, new FMType(typeName, typePackage), p.getVisibility().toString(), 
 				lower, upper, association);
 		return prop;		
 	}	
