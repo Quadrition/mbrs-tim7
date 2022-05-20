@@ -1,6 +1,8 @@
 package ${class.typePackage};
 
-${class.visibility} class ${class.name} {  
+${class.visibility} class ${class.name} { 
+
+	 
 <#list properties as property>
 	<#if property.upper == 1 >   
       ${property.visibility} ${property.type.name} ${property.name};
@@ -13,6 +15,8 @@ ${class.visibility} class ${class.name} {
     </#if>     
 </#list>
 
+      public ${class.name}(){}
+      
 <#list properties as property>
 	<#if property.upper == 1 >   
       public ${property.type.name} get${property.name?cap_first}(){
@@ -28,7 +32,7 @@ ${class.visibility} class ${class.name} {
            return ${property.name};
       }
       
-      public void set${property.name?cap_first}( Set<${property.type}> ${property.name}){
+      public void set${property.name?cap_first}( Set<${property.type.name}> ${property.name}){
            this.${property.name} = ${property.name};
       }
       
