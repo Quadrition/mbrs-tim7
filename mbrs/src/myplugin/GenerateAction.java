@@ -18,6 +18,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import myplugin.analyzer.AnalyzeException;
 import myplugin.analyzer.ModelAnalyzer;
+import myplugin.generator.ControllerGenerator;
 import myplugin.generator.MapperGenerator;
 import myplugin.generator.ModelGenerator;
 import myplugin.generator.RepoGenerator;
@@ -63,6 +64,7 @@ class GenerateAction extends MDAction{
 			generateService(analyzer, root, generatorOptions);
 			generateServiceImpl(analyzer, root, generatorOptions);
 			generateMapper(analyzer, root, generatorOptions);
+			generateController(analyzer, root, generatorOptions);
 			
 		} catch (AnalyzeException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
@@ -132,6 +134,18 @@ class GenerateAction extends MDAction{
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("RepoGenerator");
 		RepoGenerator repoGenerator = new RepoGenerator(generatorOptions);
 		repoGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
+		exportToXml();
+		
+	}
+	
+	private void generateController(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
+		analyzer = new ModelAnalyzer(root, "uns.ftn.mbrs.controller");
+		analyzer.prepareModel();
+		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ControllerGenerator");
+		ControllerGenerator controllerGenerator = new ControllerGenerator(generatorOptions);
+		controllerGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
 		exportToXml();

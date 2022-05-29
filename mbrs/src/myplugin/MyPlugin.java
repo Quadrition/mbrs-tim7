@@ -37,6 +37,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		modelOptions();
 		enumOptions();
 		repoOptions();
+		controllerOptions();
 	}
 	
 	private void test() {
@@ -78,6 +79,13 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 	private void repoOptions() {
 		GeneratorOptions enumOptions = new GeneratorOptions("c:/temp", "repositoryclass", "templates", "{0}Repository.java", true, "uns.ftn.mbrs.repository"); 				
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("RepoGenerator", enumOptions);
+		enumOptions.setTemplateDir(pluginDir + File.separator + enumOptions.getTemplateDir());
+		
+	}
+	
+	private void controllerOptions() {
+		GeneratorOptions enumOptions = new GeneratorOptions("c:/temp", "contollerclass", "templates", "{0}Controller.java", true, "uns.ftn.mbrs.controller"); 				
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ControllerGenerator", enumOptions);
 		enumOptions.setTemplateDir(pluginDir + File.separator + enumOptions.getTemplateDir());
 		
 	}
