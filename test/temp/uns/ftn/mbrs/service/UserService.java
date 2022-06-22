@@ -9,10 +9,7 @@ public interface UserService {
 	
 	List<User> findAll();
 	
-	List<User> findByFirstName(myplugin.generator.fmmodel.FMType@2b2ce208 firstName);
-	List<User> findByLastName(myplugin.generator.fmmodel.FMType@26e38067 lastName);
+	List<User> findByFirstName(String firstName);
+	List<User> findByLastName(String lastName);
 
-	User save(UserDTO user);
-	User update(UserDTO user);
-	User remove(Long id);
 }

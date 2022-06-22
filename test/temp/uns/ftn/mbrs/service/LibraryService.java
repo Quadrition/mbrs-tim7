@@ -9,9 +9,6 @@ public interface LibraryService {
 	
 	List<Library> findAll();
 	
-	List<Library> findByName(myplugin.generator.fmmodel.FMType@6fb8ef53 name);
+	List<Library> findByName(String name);
 
-	Library save(LibraryDTO library);
-	Library update(LibraryDTO library);
-	Library remove(Long id);
 }

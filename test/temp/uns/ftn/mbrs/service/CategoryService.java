@@ -9,10 +9,7 @@ public interface CategoryService {
 	
 	List<Category> findAll();
 	
-	List<Category> findByName(myplugin.generator.fmmodel.FMType@5b5fc261 name);
-	List<Category> findByDescription(myplugin.generator.fmmodel.FMType@5b824c60 description);
+	List<Category> findByName(String name);
+	List<Category> findByDescription(String description);
 
-	Category save(CategoryDTO category);
-	Category update(CategoryDTO category);
-	Category remove(Long id);
 }

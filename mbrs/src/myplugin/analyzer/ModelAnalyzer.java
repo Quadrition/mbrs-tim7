@@ -3,11 +3,14 @@ package myplugin.analyzer;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMEnumeration;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.fmmodel.FMProperty;
 import myplugin.generator.fmmodel.FMType;
+import myplugin.generator.fmmodel.UIClass;
 
 import com.nomagic.uml2.ext.jmi.helpers.ModelHelper;
 import com.nomagic.uml2.ext.jmi.helpers.StereotypesHelper;
@@ -18,6 +21,7 @@ import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Class;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Enumeration;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Property;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Type;
+import com.nomagic.uml2.ext.magicdraw.mdprofiles.Stereotype;
 
 
 /** Model Analyzer takes necessary metadata from the MagicDraw model and puts it in 
@@ -107,6 +111,42 @@ public class ModelAnalyzer {
 			FMProperty prop = getPropertyData(p, cl);
 			fmClass.addProperty(prop);	
 		}	
+		
+		
+		
+		Stereotype uiClassStereotype = StereotypesHelper.getAppliedStereotypeByString(cl, "UIClass");
+		if(uiClassStereotype != null) {
+			boolean create = true;
+			boolean update = true;
+			boolean delete = true;
+			boolean read = true;
+			
+			List<Property> tags = uiClassStereotype.getOwnedAttribute();
+	        for (Property tag: tags) {
+	            String tagName = tag.getName();
+	            List value = StereotypesHelper.getStereotypePropertyValue(cl, uiClassStereotype, tagName);
+	            if(value.size() > 0) {
+	            	switch(tagName) {
+			            case "create": 
+			            	create = (boolean) value.get(0);
+			            	break;
+			            case "update":
+			            	update = (boolean) value.get(0);
+			            	break;
+			            case "delete":
+			            	delete = (boolean) value.get(0);
+			            	break;
+			            case "read":
+			            	read = (boolean) value.get(0);
+			            	break;
+	            	}
+	            	
+			     }
+	            
+	        }
+	        UIClass uiClass = new UIClass("labela", create, update, delete, read);
+		    fmClass.setUiClass(uiClass);
+		}
 		
 		/** @ToDo:
 		 * Add import declarations etc. */		

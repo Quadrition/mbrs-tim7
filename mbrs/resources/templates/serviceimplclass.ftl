@@ -15,7 +15,7 @@ public class ${class.name}ServiceImpl implements ${class.name}Service{
 	<#list properties as property>
 		<#if property.association>
 	@Autowired
-	private ${property.type?cap_first}Repository ${property.type?uncap_first}Reposiroty;
+	private ${property.type.name?cap_first}Repository ${property.type.name?uncap_first}Reposiroty;
 	
 		</#if>
 	</#list>
@@ -32,12 +32,13 @@ public class ${class.name}ServiceImpl implements ${class.name}Service{
 	<#list properties as property>
 		<#if property.name != "id" && property.upper == 1 && !property.association>
 	@Override
-	List<${class.name}> findBy${property.name?cap_first}(${property.type} ${property.name}){
+	List<${class.name}> findBy${property.name?cap_first}(${property.type.name} ${property.name}){
 		return ${class.name?uncap_first}Repository.findBy${property.name?cap_first}(${property.name});
 	}
 		</#if>
 	</#list>
 
+	<#if class.uiClass?? && ( class.uiClass.create == true || class.uiClass.update)>
 	@Override
 	${class.name} save(${class.name}DTO ${class.name?uncap_first}){
 		${class.name} newEntity = new ${class.name}();
@@ -46,15 +47,17 @@ public class ${class.name}ServiceImpl implements ${class.name}Service{
 		newEntity.set${property.name?cap_first}(${class.name?uncap_first}.get${property.name?cap_first}());
 			<#else>
 				<#if property.upper == 1>
-		newEntity.set${property.name?cap_first}(${property.type?uncap_first}Reposiroty.findOne(${class.name?uncap_first}.get${property.name?cap_first}().getId()));	
+		newEntity.set${property.name?cap_first}(${property.type.name?uncap_first}Reposiroty.findOne(${class.name?uncap_first}.get${property.name?cap_first}().getId()));	
 				<#else>
-		// asocijacija ${property.type?uncap_first}Reposiroty		
+		// asocijacija ${property.type.name?uncap_first}Reposiroty		
 				</#if>
 			</#if>
 		</#list>
 		
 		return ${class.name?uncap_first}Repository.save(newEntity);
 	}
+	</#if>
+	<#if class.uiClass?? && (class.uiClass.update)>
 	@Override
 	${class.name} update(${class.name}DTO ${class.name?uncap_first}){
 		${class.name} existing = ${class.name?uncap_first}Repository.findById(id);
@@ -67,15 +70,17 @@ public class ${class.name}ServiceImpl implements ${class.name}Service{
 		existing.set${property.name?cap_first}(${class.name?uncap_first}.get${property.name?cap_first}());
 			<#else>
 				<#if property.upper == 1>
-		existing.set${property.name?cap_first}(${property.type?uncap_first}Reposiroty.findOne(${class.name?uncap_first}.get${property.name?cap_first}().getId()));	
+		existing.set${property.name?cap_first}(${property.type.name?uncap_first}Reposiroty.findOne(${class.name?uncap_first}.get${property.name?cap_first}().getId()));	
 				<#else>
-		// asocijacija ${property.type?uncap_first}Reposiroty				
+		// asocijacija ${property.type.name?uncap_first}Repository				
 				</#if>
 			</#if>
 		</#list>
 		
 		return ${class.name?uncap_first}Repository.save(existing);
 	}
+	</#if>
+	<#if class.uiClass?? && ( class.uiClass.delete == true)>
 	@Override
 	${class.name} remove(Long id){
 		${class.name} existing = ${class.name?uncap_first}Repository.findById(id);
@@ -86,4 +91,5 @@ public class ${class.name}ServiceImpl implements ${class.name}Service{
 		
 		return existing;
 	}
+	</#if>
 }

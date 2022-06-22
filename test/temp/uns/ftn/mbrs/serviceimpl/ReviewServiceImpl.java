@@ -13,7 +13,7 @@ public class ReviewServiceImpl implements ReviewService{
 	private ReviewRepository reviewRepository;
 	
 	@Autowired
-	private Myplugin.generator.fmmodel.FMType@1bfc1b88Repository myplugin.generator.fmmodel.FMType@1bfc1b88Reposiroty;
+	private BookRepository bookReposiroty;
 	
 	@Override
 	public Review findOne(Long id){
@@ -26,38 +26,8 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	
 	@Override
-	List<Review> findByComment(myplugin.generator.fmmodel.FMType@1a31b887 comment){
+	List<Review> findByComment(String comment){
 		return reviewRepository.findByComment(comment);
 	}
 
-	@Override
-	Review save(ReviewDTO review){
-		Review newEntity = new Review();
-		newEntity.setBook(myplugin.generator.fmmodel.FMType@1bfc1b88Reposiroty.findOne(review.getBook().getId()));	
-		newEntity.setComment(review.getComment());
-		
-		return reviewRepository.save(newEntity);
-	}
-	@Override
-	Review update(ReviewDTO review){
-		Review existing = reviewRepository.findById(id);
-		if(existing == null){
-			throw new Exception("Review doesn't exist");
-		}
-		//update entity
-		existing.setBook(myplugin.generator.fmmodel.FMType@1bfc1b88Reposiroty.findOne(review.getBook().getId()));	
-		existing.setComment(review.getComment());
-		
-		return reviewRepository.save(existing);
-	}
-	@Override
-	Review remove(Long id){
-		Review existing = reviewRepository.findById(id);
-		if(existing == null){
-			throw new Exception("Review doesn't exist");
-		}
-		reviewRepository.delete(existing);
-		
-		return existing;
-	}
 }

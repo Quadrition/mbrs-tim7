@@ -13,6 +13,7 @@ public class FMProperty extends FMElement  {
 	
 	private boolean association;
 	
+	private UIProperty uiProperty;
 	/** @ToDo: Add length, precision, unique... whatever is needed for ejb class generation
 	 * Also, provide these meta-attributes or tags in the modeling languange metaclass or 
 	 * stereotype */
@@ -29,12 +30,36 @@ public class FMProperty extends FMElement  {
 	}
 	
 	
+	
+	public FMProperty(String name, FMType type, String visibility, Integer lower, Integer upper, boolean association,
+			UIProperty uiProperty) {
+		super(name);
+		this.type = type;
+		this.visibility = visibility;
+		this.lower = lower;
+		this.upper = upper;
+		this.association = association;
+		this.uiProperty = uiProperty;
+	}
+
+
+
 	public FMProperty(String name, FMType type, String visibility, Integer lower, Integer upper) {
 		super(name);
 		this.type = type;
 		this.visibility = visibility;
 		this.lower = lower;
 		this.upper = upper;
+	}
+
+
+	public UIProperty getUiProperty() {
+		return uiProperty;
+	}
+
+
+	public void setUiProperty(UIProperty uiProperty) {
+		this.uiProperty = uiProperty;
 	}
 
 

@@ -9,9 +9,6 @@ public interface ReviewService {
 	
 	List<Review> findAll();
 	
-	List<Review> findByComment(myplugin.generator.fmmodel.FMType@38a1210 comment);
+	List<Review> findByComment(String comment);
 
-	Review save(ReviewDTO review);
-	Review update(ReviewDTO review);
-	Review remove(Long id);
 }
