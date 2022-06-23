@@ -2,6 +2,7 @@ package myplugin;
 
 import java.awt.event.ActionEvent;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
@@ -33,7 +34,7 @@ import myplugin.generator.options.ProjectOptions;
 @SuppressWarnings("serial")
 class GenerateAction extends MDAction{
 	
-	
+	String outputPath;
 	public GenerateAction(String name) {			
 		super("", name, null, null);		
 	}
@@ -59,6 +60,7 @@ class GenerateAction extends MDAction{
 //					                         ", package: " + go.getFilePackage());
 //			exportToXml();
 			JOptionPane.showMessageDialog( null, "CAO");
+			chooseLocation();
 			generateRepo(analyzer, root, generatorOptions);
 			generateModel(analyzer, root, generatorOptions);
 			generateEnum(analyzer, root, generatorOptions);
@@ -71,12 +73,30 @@ class GenerateAction extends MDAction{
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		} 			
 	}
+	private void chooseLocation() {
+		JFileChooser chooser = new JFileChooser();
+		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int status = chooser.showOpenDialog(null);
+        if (status == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            if (file == null) {
+            	outputPath = "c:/temp";
+                return;
+            }
+
+            String path = chooser.getSelectedFile().getAbsolutePath();
+            outputPath = path;
+            System.err.println("Putanjaaa "+ path);
+
+        }
+	}
 	
 	private void generateService(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions)
 			throws AnalyzeException {
 		analyzer = new ModelAnalyzer(root,"com.example.demo.service");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ServiceGenerator");
+		generatorOptions.setOutputPath(outputPath);
 		ServiceGenerator serviceGenerator = new ServiceGenerator(generatorOptions);
 		serviceGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
@@ -89,6 +109,7 @@ class GenerateAction extends MDAction{
 		analyzer = new ModelAnalyzer(root,"com.example.demo.serviceimpl");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ServiceImplGenerator");
+		generatorOptions.setOutputPath(outputPath);
 		ServiceImplGenerator serviceImplGenerator = new ServiceImplGenerator(generatorOptions);
 		serviceImplGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
@@ -100,6 +121,7 @@ class GenerateAction extends MDAction{
 		analyzer = new ModelAnalyzer(root,"com.example.demo.mapper");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("MapperGenerator");
+		generatorOptions.setOutputPath(outputPath);
 		MapperGenerator mapperGenerator = new MapperGenerator(generatorOptions);
 		mapperGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
@@ -111,6 +133,7 @@ class GenerateAction extends MDAction{
 		analyzer = new ModelAnalyzer(root,"com.example.demo.model");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ModelGenerator");
+		generatorOptions.setOutputPath(outputPath);
 		ModelGenerator modelGenerator = new ModelGenerator(generatorOptions);
 		modelGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
@@ -121,6 +144,7 @@ class GenerateAction extends MDAction{
 		analyzer = new ModelAnalyzer(root, "com.example.demo.model");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EnumGenerator");
+		generatorOptions.setOutputPath(outputPath);
 		EnumGenerator enumGenerator = new EnumGenerator(generatorOptions);
 		enumGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
@@ -133,6 +157,7 @@ class GenerateAction extends MDAction{
 		analyzer = new ModelAnalyzer(root, "com.example.demo.repository");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("RepoGenerator");
+		generatorOptions.setOutputPath(outputPath);
 		RepoGenerator repoGenerator = new RepoGenerator(generatorOptions);
 		repoGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
@@ -145,6 +170,7 @@ class GenerateAction extends MDAction{
 		analyzer = new ModelAnalyzer(root, "com.example.demo.controller");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ControllerGenerator");
+		generatorOptions.setOutputPath(outputPath);
 		ControllerGenerator controllerGenerator = new ControllerGenerator(generatorOptions);
 		controllerGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
