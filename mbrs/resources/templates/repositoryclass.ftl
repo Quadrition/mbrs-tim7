@@ -5,9 +5,20 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Date;
-import uns.ftn.mbrs.model.*;
 
-import uns.ftn.mbrs.model.${class.name};
+
+<#assign mylist=class.typePackage?split(".")>
+
+
+<#assign x=mylist?size-2>
+<#assign baseDir=mylist[0]>
+
+<#list 1..x as i>
+	<#assign baseDir = baseDir+"."+mylist[i]>
+</#list>
+
+import ${baseDir}.model.*;
+
 
 
 @Repository

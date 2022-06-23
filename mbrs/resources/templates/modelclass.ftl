@@ -1,5 +1,18 @@
 package ${class.typePackage};
 
+
+<#assign mylist=class.typePackage?split(".")>
+
+
+<#assign x=mylist?size-2>
+<#assign baseDir=mylist[0]>
+
+<#list 1..x as i>
+	<#assign baseDir = baseDir+"."+mylist[i]>
+</#list>
+
+import ${baseDir}.model.*;
+
 ${class.visibility} class ${class.name} { 
 
 	 

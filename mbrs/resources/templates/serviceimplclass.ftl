@@ -6,6 +6,23 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Date;
 
+
+<#assign mylist=class.typePackage?split(".")>
+
+
+<#assign x=mylist?size-2>
+<#assign baseDir=mylist[0]>
+
+<#list 1..x as i>
+	<#assign baseDir = baseDir+"."+mylist[i]>
+</#list>
+
+import ${baseDir}.model.*;
+import ${baseDir}.service.*;
+import ${baseDir}.mapper.*;
+import ${baseDir}.dto.*;
+import ${baseDir}.repository.*;
+
 @Service
 public class ${class.name}ServiceImpl implements ${class.name}Service{
 

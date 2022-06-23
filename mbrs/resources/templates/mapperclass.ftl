@@ -2,6 +2,24 @@ package ${class.typePackage};
 
 import java.util.List;
 import java.util.Date;
+import java.util.ArrayList;
+
+
+
+<#assign mylist=class.typePackage?split(".")>
+
+
+<#assign x=mylist?size-2>
+<#assign baseDir=mylist[0]>
+
+<#list 1..x as i>
+	<#assign baseDir = baseDir+"."+mylist[i]>
+</#list>
+
+import ${baseDir}.model.*;
+import ${baseDir}.service.*;
+import ${baseDir}.mapper.*;
+import ${baseDir}.dto.*;
 
 public class ${class.name}Mapper {
 
@@ -12,10 +30,10 @@ public class ${class.name}Mapper {
 				<#if property.association == false>
 		retVal.set${property.name?cap_first}(entity.get${property.name?cap_first}());
 				<#else>
-		retVal.set${property.name?cap_first}(${property.type?cap_first}Mapper.toDto(entity.get${property.name?cap_first}()));
+		retVal.set${property.name?cap_first}(${property.type.name?cap_first}Mapper.toDto(entity.get${property.name?cap_first}()));
 				</#if>
 			<#else>
-		retVal.set${property.name?cap_first}(${property.type?cap_first}Mapper.toDtoList(entity.get${property.name?cap_first}()))
+		retVal.set${property.name?cap_first}(${property.type.name?cap_first}Mapper.toDtoList(entity.get${property.name?cap_first}()))
 			</#if>
 		</#list>
 		return retVal;
@@ -28,10 +46,10 @@ public class ${class.name}Mapper {
 				<#if property.association == false>
 		retVal.set${property.name?cap_first}(dto.get${property.name?cap_first}());
 				<#else>
-		retVal.set${property.name?cap_first}(${property.type?cap_first}Mapper.toEntity(dto.get${property.name?cap_first}()));
+		retVal.set${property.name?cap_first}(${property.type.name?cap_first}Mapper.toEntity(dto.get${property.name?cap_first}()));
 				</#if>
 			<#else>
-		retVal.set${property.name?cap_first}(${property.type?cap_first}Mapper.toEntityList(dto.get${property.name?cap_first}()))
+		retVal.set${property.name?cap_first}(${property.type.name?cap_first}Mapper.toEntityList(dto.get${property.name?cap_first}()))
 			</#if>
 		</#list>
 		return retVal;

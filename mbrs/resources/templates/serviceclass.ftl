@@ -3,6 +3,20 @@ package ${class.typePackage};
 import java.util.List;
 import java.util.Date;
 
+
+<#assign mylist=class.typePackage?split(".")>
+
+
+<#assign x=mylist?size-2>
+<#assign baseDir=mylist[0]>
+
+<#list 1..x as i>
+	<#assign baseDir = baseDir+"."+mylist[i]>
+</#list>
+
+import ${baseDir}.model.*;
+import ${baseDir}.dto.*;
+
 public interface ${class.name}Service {
 
 	${class.name} findOne(Long id);
