@@ -76,11 +76,12 @@ class GenerateAction extends MDAction{
 	private void chooseLocation() {
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		chooser.setDialogTitle("Choose destination folder");
         int status = chooser.showOpenDialog(null);
         if (status == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
             if (file == null) {
-            	outputPath = "c:/temp";
+            	outputPath = "C:/temp";
                 return;
             }
 

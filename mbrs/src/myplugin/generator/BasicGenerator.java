@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
+import javax.swing.JOptionPane;
+
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.Template;
@@ -41,7 +43,10 @@ public abstract class BasicGenerator {
 
 	public void generate() throws IOException {		
 		if (outputPath == null) {
-			throw new IOException("Output path is not defined!");
+			outputPath = "C:/temp";
+			generatorOptions.setOutputPath("C:/temp");
+			//throw new IOException("Output path is not defined! Generated code will be saved in C:/temp");
+			JOptionPane.showMessageDialog(null, "Output path is not defined! Generated code will be saved in C:/temp");
 		}	
 		if (templateName == null) {
 			throw new IOException("Template name is not defined!");
