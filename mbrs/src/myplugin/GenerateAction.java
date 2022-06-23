@@ -58,6 +58,7 @@ class GenerateAction extends MDAction{
 //			JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() +
 //					                         ", package: " + go.getFilePackage());
 //			exportToXml();
+			JOptionPane.showMessageDialog( null, "CAO");
 			generateRepo(analyzer, root, generatorOptions);
 			generateModel(analyzer, root, generatorOptions);
 			generateEnum(analyzer, root, generatorOptions);
@@ -73,7 +74,7 @@ class GenerateAction extends MDAction{
 	
 	private void generateService(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions)
 			throws AnalyzeException {
-		analyzer = new ModelAnalyzer(root,"uns.ftn.mbrs.service");
+		analyzer = new ModelAnalyzer(root,"com.example.demo.service");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ServiceGenerator");
 		ServiceGenerator serviceGenerator = new ServiceGenerator(generatorOptions);
@@ -85,7 +86,7 @@ class GenerateAction extends MDAction{
 
 	private void generateServiceImpl(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions)
 			throws AnalyzeException {
-		analyzer = new ModelAnalyzer(root,"uns.ftn.mbrs.serviceimpl");
+		analyzer = new ModelAnalyzer(root,"com.example.demo.serviceimpl");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ServiceImplGenerator");
 		ServiceImplGenerator serviceImplGenerator = new ServiceImplGenerator(generatorOptions);
@@ -96,7 +97,7 @@ class GenerateAction extends MDAction{
 	}
 	private void generateMapper(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions)
 			throws AnalyzeException {
-		analyzer = new ModelAnalyzer(root,"uns.ftn.mbrs.mapper");
+		analyzer = new ModelAnalyzer(root,"com.example.demo.mapper");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("MapperGenerator");
 		MapperGenerator mapperGenerator = new MapperGenerator(generatorOptions);
@@ -107,7 +108,7 @@ class GenerateAction extends MDAction{
 	}
 	private void generateModel(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions)
 			throws AnalyzeException {
-		analyzer = new ModelAnalyzer(root,"uns.ftn.mbrs.model");
+		analyzer = new ModelAnalyzer(root,"com.example.demo.model");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ModelGenerator");
 		ModelGenerator modelGenerator = new ModelGenerator(generatorOptions);
@@ -117,7 +118,7 @@ class GenerateAction extends MDAction{
 		exportToXml();
 	}
 	private void generateEnum(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
-		analyzer = new ModelAnalyzer(root, "uns.ftn.mbrs.model");
+		analyzer = new ModelAnalyzer(root, "com.example.demo.model");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EnumGenerator");
 		EnumGenerator enumGenerator = new EnumGenerator(generatorOptions);
@@ -129,7 +130,7 @@ class GenerateAction extends MDAction{
 	}
 	
 	private void generateRepo(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
-		analyzer = new ModelAnalyzer(root, "uns.ftn.mbrs.repository");
+		analyzer = new ModelAnalyzer(root, "com.example.demo.repository");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("RepoGenerator");
 		RepoGenerator repoGenerator = new RepoGenerator(generatorOptions);
@@ -141,7 +142,7 @@ class GenerateAction extends MDAction{
 	}
 	
 	private void generateController(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
-		analyzer = new ModelAnalyzer(root, "uns.ftn.mbrs.controller");
+		analyzer = new ModelAnalyzer(root, "com.example.demo.controller");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ControllerGenerator");
 		ControllerGenerator controllerGenerator = new ControllerGenerator(generatorOptions);

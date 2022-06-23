@@ -34,7 +34,7 @@ public class EnumGenerator extends BasicGenerator{
 			context.clear();
 			
 			try {
-				out = getWriter(en.getName(), en.getTypePackage());
+				out = getWriter(en.getName(), this.getFilePackage());
 				if (out != null) {
 					context.put("enum", en);
 					context.put("values", en.getValues());

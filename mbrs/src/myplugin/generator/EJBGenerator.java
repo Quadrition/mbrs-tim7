@@ -42,7 +42,7 @@ public class EJBGenerator extends BasicGenerator {
 			Writer out;
 			Map<String, Object> context = new HashMap<String, Object>();
 			try {
-				out = getWriter(cl.getName(), cl.getTypePackage());
+				out = getWriter(cl.getName(),  this.getFilePackage());
 				if (out != null) {
 					context.clear();
 					context.put("class", cl);

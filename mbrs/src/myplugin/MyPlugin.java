@@ -30,7 +30,6 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		
 		//for test purpose only:
 		//test();
-		
 		serviceOptions();
 		serviceImplOptions();
 		mapperOptions();
@@ -47,44 +46,44 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		ejbOptions.setTemplateDir(pluginDir + File.separator + ejbOptions.getTemplateDir()); //apsolutna putanja
 	}
 	private void serviceOptions() {
-		GeneratorOptions ejbOptions = new GeneratorOptions("c:/temp", "serviceclass", "templates", "{0}Service.java", true, "uns.ftn.mbrs.service"); 				
+		GeneratorOptions ejbOptions = new GeneratorOptions("c:/temp", "serviceclass", "templates", "{0}Service.java", true, "service"); 				
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ServiceGenerator", ejbOptions);
 				
 		ejbOptions.setTemplateDir(pluginDir + File.separator + ejbOptions.getTemplateDir()); //apsolutna putanja
 	}
 	private void serviceImplOptions() {
-		GeneratorOptions ejbOptions = new GeneratorOptions("c:/temp", "serviceimplclass", "templates", "{0}ServiceImpl.java", true, "uns.ftn.mbrs.serviceimpl"); 				
+		GeneratorOptions ejbOptions = new GeneratorOptions("c:/temp", "serviceimplclass", "templates", "{0}ServiceImpl.java", true, "serviceimpl"); 				
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ServiceImplGenerator", ejbOptions);
 		ejbOptions.setTemplateDir(pluginDir + File.separator + ejbOptions.getTemplateDir()); //apsolutna putanja
 	}
 	
 	private void mapperOptions() {
-		GeneratorOptions ejbOptions = new GeneratorOptions("c:/temp", "mapperclass", "templates", "{0}Mapper.java", true, "uns.ftn.mbrs.mapper"); 				
+		GeneratorOptions ejbOptions = new GeneratorOptions("c:/temp", "mapperclass", "templates", "{0}Mapper.java", true, "mapper"); 				
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("MapperGenerator", ejbOptions);
 		ejbOptions.setTemplateDir(pluginDir + File.separator + ejbOptions.getTemplateDir()); //apsolutna putanja
 	}
 	
 	private void modelOptions() {
-		GeneratorOptions modelOptions = new GeneratorOptions("c:/temp", "modelclass", "templates", "{0}.java", true, "uns.ftn.mbrs.model"); 				
+		GeneratorOptions modelOptions = new GeneratorOptions("c:/temp", "modelclass", "templates", "{0}.java", true, "model"); 				
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ModelGenerator", modelOptions);
 		modelOptions.setTemplateDir(pluginDir + File.separator + modelOptions.getTemplateDir()); //apsolutna putanja
 	}
 	private void enumOptions() {
-		GeneratorOptions enumOptions = new GeneratorOptions("c:/temp", "enum", "templates", "{0}.java", true, "uns.ftn.mbrs.model"); 				
+		GeneratorOptions enumOptions = new GeneratorOptions("c:/temp", "enum", "templates", "{0}.java", true, "model"); 				
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("EnumGenerator", enumOptions);
 		enumOptions.setTemplateDir(pluginDir + File.separator + enumOptions.getTemplateDir());
 		
 	}
 	
 	private void repoOptions() {
-		GeneratorOptions enumOptions = new GeneratorOptions("c:/temp", "repositoryclass", "templates", "{0}Repository.java", true, "uns.ftn.mbrs.repository"); 				
+		GeneratorOptions enumOptions = new GeneratorOptions("c:/temp", "repositoryclass", "templates", "{0}Repository.java", true, "repository"); 				
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("RepoGenerator", enumOptions);
 		enumOptions.setTemplateDir(pluginDir + File.separator + enumOptions.getTemplateDir());
 		
 	}
 	
 	private void controllerOptions() {
-		GeneratorOptions enumOptions = new GeneratorOptions("c:/temp", "contollerclass", "templates", "{0}Controller.java", true, "uns.ftn.mbrs.controller"); 				
+		GeneratorOptions enumOptions = new GeneratorOptions("c:/temp", "contollerclass", "templates", "{0}Controller.java", true, "controller"); 				
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ControllerGenerator", enumOptions);
 		enumOptions.setTemplateDir(pluginDir + File.separator + enumOptions.getTemplateDir());
 		
