@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -21,6 +20,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import myplugin.analyzer.AnalyzeException;
 import myplugin.analyzer.ModelAnalyzer;
 import myplugin.generator.ControllerGenerator;
+import myplugin.generator.DtoGenerator;
 import myplugin.generator.MapperGenerator;
 import myplugin.generator.ModelGenerator;
 import myplugin.generator.RepoGenerator;
@@ -62,9 +62,10 @@ class GenerateAction extends MDAction{
 //			JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() +
 //					                         ", package: " + go.getFilePackage());
 //			exportToXml();
-			JOptionPane.showMessageDialog( null, "CAO");
+			//JOptionPane.showMessageDialog( null, "CAO");
 			chooseLocation();
 			parsePath();
+			generateDTO(analyzer, root, generatorOptions);
 			generateRepo(analyzer, root, generatorOptions);
 			generateModel(analyzer, root, generatorOptions);
 			generateEnum(analyzer, root, generatorOptions);
@@ -196,6 +197,19 @@ class GenerateAction extends MDAction{
 		analyzer = new ModelAnalyzer(root, parsedPath +"controller");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ControllerGenerator");
+		generatorOptions.setOutputPath(outputPath);
+		ControllerGenerator controllerGenerator = new ControllerGenerator(generatorOptions);
+		controllerGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
+		exportToXml();
+		
+	}
+	
+	private void generateDTO(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
+		analyzer = new ModelAnalyzer(root, parsedPath +"dto");
+		analyzer.prepareModel();
+		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("DtoGenerator");
 		generatorOptions.setOutputPath(outputPath);
 		ControllerGenerator controllerGenerator = new ControllerGenerator(generatorOptions);
 		controllerGenerator.generate();

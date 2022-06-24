@@ -17,7 +17,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 	String pluginDir = null; 
 	
 	public void init() {
-		JOptionPane.showMessageDialog( null, "My Plugin init");
+		//JOptionPane.showMessageDialog( null, "My Plugin init");
 		
 		pluginDir = getDescriptor().getPluginDirectory().getPath();
 		
@@ -37,6 +37,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		enumOptions();
 		repoOptions();
 		controllerOptions();
+		dtoOptions();
 	}
 	
 	private void test() {
@@ -86,6 +87,13 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		GeneratorOptions enumOptions = new GeneratorOptions("c:/temp", "contollerclass", "templates", "{0}Controller.java", true, "controller"); 				
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ControllerGenerator", enumOptions);
 		enumOptions.setTemplateDir(pluginDir + File.separator + enumOptions.getTemplateDir());
+		
+	}
+	
+	private void dtoOptions() {
+		GeneratorOptions dtoOptions = new GeneratorOptions("c:/temp", "dtoclass", "templates", "{0}DTO.java", true, "dto"); 				
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("DtoGenerator", dtoOptions);
+		dtoOptions.setTemplateDir(pluginDir + File.separator + dtoOptions.getTemplateDir());
 		
 	}
 	

@@ -28,7 +28,12 @@ ${class.visibility} class ${class.name} {
 	private Long id; 
 
 <#list properties as property>
-	<#if property.upper == 1 >  
+	<#if property.upper == -1 >  
+	@OneToMany
+	${property.visibility} Set<<#if property.type.name == "date" > Date <#else>${property.type.name} </#if>> <#if property.name != "" > ${property.name} <#else> ${property.type.name?uncap_first}</#if> = new HashSet<${property.type.name}>();
+
+    <#elseif property.upper == 1 > 
+	
 	<#if property.association==true>
 	  	<#if property.aggregationType =="composite" || property.aggregationType =="shared" >
 	@OneToOne
@@ -39,11 +44,7 @@ ${class.visibility} class ${class.name} {
 	@Column
 	  </#if> 
 	${property.visibility} <#if property.type.name == "date" > Date <#else>${property.type.name} </#if><#if property.name != "" > ${property.name} <#else> ${property.type.name?uncap_first}</#if>;
-    
-    <#elseif property.upper == -1 > 
-	@OneToMany
-	${property.visibility} Set<<#if property.type.name == "date" > Date <#else>${property.type.name} </#if>> <#if property.name != "" > ${property.name} <#else> ${property.type.name?uncap_first}</#if> = new HashSet<${property.type.name}>();
-	
+   
     <#else>   
     	<#list 1..property.upper as i>
 	${property.visibility} ${property.type.name} ${property.name}${i};
@@ -77,21 +78,21 @@ ${class.visibility} class ${class.name} {
 		this.id = id;
 	}
 <#list properties as property>
-	<#if property.upper == 1 >   
-     public ${property.type.name} get${property.name?cap_first}(){
-          return ${property.name};
-     }
-      
-     public void set${property.name?cap_first}(${property.type.name} ${property.name}){
-          this.${property.name} = ${property.name};
-     }
-      
-    <#elseif property.upper == -1 >
+	<#if property.upper == -1 >   
      public Set<${property.type.name}> get${property.name?cap_first}(){
           return ${property.name};
      }
       
      public void set${property.name?cap_first}( Set<${property.type.name}> ${property.name}){
+          this.${property.name} = ${property.name};
+     }
+      
+    <#elseif property.upper == 1 >
+     public ${property.type.name} get${property.name?cap_first}(){
+          return ${property.name};
+     }
+      
+     public void set${property.name?cap_first}(${property.type.name} ${property.name}){
           this.${property.name} = ${property.name};
      }
       
