@@ -171,12 +171,16 @@ public class ModelAnalyzer {
 		int lower = p.getLower();
 		int upper = p.getUpper();
 		boolean association = false;
+		String aggregationType = "none";
 		
-		if (p.getAssociation() != null)
+		if (p.getAssociation() != null) {
 			association = true;
+			aggregationType = p.getAggregation().toString().toLowerCase();
+		}
+		
 		String typePackage = attType.getPackage().getName();
 		FMProperty prop = new FMProperty(attName, new FMType(typeName, typePackage), p.getVisibility().toString(), 
-				lower, upper, association);
+				lower, upper, association, aggregationType);
 		return prop;		
 	}	
 	

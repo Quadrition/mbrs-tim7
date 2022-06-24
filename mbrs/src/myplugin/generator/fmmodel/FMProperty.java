@@ -13,13 +13,16 @@ public class FMProperty extends FMElement  {
 	
 	private boolean association;
 	
+	private String aggregationType;
+
+	
 	private UIProperty uiProperty;
 	/** @ToDo: Add length, precision, unique... whatever is needed for ejb class generation
 	 * Also, provide these meta-attributes or tags in the modeling languange metaclass or 
 	 * stereotype */
 	
 	
-	public FMProperty(String name, FMType type, String visibility, int lower, int upper, boolean association) {
+	public FMProperty(String name, FMType type, String visibility, int lower, int upper, boolean association, String aggregationType) {
 		super(name);
 		this.type = type;
 		this.visibility = visibility;
@@ -27,12 +30,13 @@ public class FMProperty extends FMElement  {
 		this.lower = lower;
 		this.upper = upper;	
 		this.association = association;
+		this.aggregationType = aggregationType;
 	}
 	
 	
 	
 	public FMProperty(String name, FMType type, String visibility, Integer lower, Integer upper, boolean association,
-			UIProperty uiProperty) {
+			UIProperty uiProperty, String aggregationType) {
 		super(name);
 		this.type = type;
 		this.visibility = visibility;
@@ -40,16 +44,20 @@ public class FMProperty extends FMElement  {
 		this.upper = upper;
 		this.association = association;
 		this.uiProperty = uiProperty;
+		this.aggregationType = aggregationType;
+
 	}
 
 
 
-	public FMProperty(String name, FMType type, String visibility, Integer lower, Integer upper) {
+	public FMProperty(String name, FMType type, String visibility, Integer lower, Integer upper,String aggregationType) {
 		super(name);
 		this.type = type;
 		this.visibility = visibility;
 		this.lower = lower;
 		this.upper = upper;
+		this.aggregationType = aggregationType;
+
 	}
 
 
@@ -99,5 +107,17 @@ public class FMProperty extends FMElement  {
 
 	public void setUpper(Integer upper) {
 		this.upper = upper;
+	}
+
+
+
+	public String getAggregationType() {
+		return aggregationType;
+	}
+
+
+
+	public void setAggregationType(String aggregationType) {
+		this.aggregationType = aggregationType;
 	}
 }
