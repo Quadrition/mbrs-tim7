@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -35,6 +36,8 @@ import myplugin.generator.options.ProjectOptions;
 class GenerateAction extends MDAction{
 	
 	String outputPath;
+	String parsedPath; //zbog importovanja paketa
+
 	public GenerateAction(String name) {			
 		super("", name, null, null);		
 	}
@@ -61,6 +64,7 @@ class GenerateAction extends MDAction{
 //			exportToXml();
 			JOptionPane.showMessageDialog( null, "CAO");
 			chooseLocation();
+			parsePath();
 			generateRepo(analyzer, root, generatorOptions);
 			generateModel(analyzer, root, generatorOptions);
 			generateEnum(analyzer, root, generatorOptions);
@@ -89,12 +93,33 @@ class GenerateAction extends MDAction{
             outputPath = path;
             System.err.println("Putanjaaa "+ path);
 
+        }else {
+        	outputPath = null; //ukoliko je 1.put izabrao putanju, prilikom 2.generisanja ona ce biti tu pa treba vrednost vratiti na null
         }
+	}
+	
+	private void parsePath() {
+		if(outputPath != null) {
+			String[] splited = outputPath.split("java"); //izgenerisana spring boot app uvek u sebi ima java folder "src\main\java"
+			System.err.println("splited: " + splited[0] + " " + splited[1]);
+			String[] parts = splited[1].split("\\\\");
+			System.err.println("PARTS: ");
+			parsedPath = "";
+			for(int i = 1; i < parts.length; i++) { //pocinje od 1 jer nakon splita uvek na pocetku postoji razmak
+				System.err.println(parts[i]);
+				parsedPath += parts[i]+".";
+			}
+			System.err.println("PASRED PATH: " + parsedPath);
+		}else {
+			parsedPath = "temp."; //default path is C:\temp
+		}
+		
+		
 	}
 	
 	private void generateService(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions)
 			throws AnalyzeException {
-		analyzer = new ModelAnalyzer(root,"com.example.demo.service");
+		analyzer = new ModelAnalyzer(root,parsedPath +"service");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ServiceGenerator");
 		generatorOptions.setOutputPath(outputPath);
@@ -107,7 +132,7 @@ class GenerateAction extends MDAction{
 
 	private void generateServiceImpl(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions)
 			throws AnalyzeException {
-		analyzer = new ModelAnalyzer(root,"com.example.demo.serviceimpl");
+		analyzer = new ModelAnalyzer(root,parsedPath +"serviceimpl");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ServiceImplGenerator");
 		generatorOptions.setOutputPath(outputPath);
@@ -119,7 +144,7 @@ class GenerateAction extends MDAction{
 	}
 	private void generateMapper(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions)
 			throws AnalyzeException {
-		analyzer = new ModelAnalyzer(root,"com.example.demo.mapper");
+		analyzer = new ModelAnalyzer(root,parsedPath +"mapper");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("MapperGenerator");
 		generatorOptions.setOutputPath(outputPath);
@@ -131,7 +156,7 @@ class GenerateAction extends MDAction{
 	}
 	private void generateModel(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions)
 			throws AnalyzeException {
-		analyzer = new ModelAnalyzer(root,"com.example.demo.model");
+		analyzer = new ModelAnalyzer(root,parsedPath +"model");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ModelGenerator");
 		generatorOptions.setOutputPath(outputPath);
@@ -155,7 +180,7 @@ class GenerateAction extends MDAction{
 	}
 	
 	private void generateRepo(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
-		analyzer = new ModelAnalyzer(root, "com.example.demo.repository");
+		analyzer = new ModelAnalyzer(root, parsedPath + "repository");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("RepoGenerator");
 		generatorOptions.setOutputPath(outputPath);
@@ -168,7 +193,7 @@ class GenerateAction extends MDAction{
 	}
 	
 	private void generateController(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
-		analyzer = new ModelAnalyzer(root, "com.example.demo.controller");
+		analyzer = new ModelAnalyzer(root, parsedPath +"controller");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ControllerGenerator");
 		generatorOptions.setOutputPath(outputPath);
