@@ -1,0 +1,13 @@
+<div>
+  <div class="row">
+    <div class="col">
+      <app-navbar-non-auth *ngIf="role === undefined "></app-navbar-non-auth>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <router-outlet (activate)="checkRole()"></router-outlet>
+    </div>
+  </div>
+  
+</div>

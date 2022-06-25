@@ -1,0 +1,65 @@
+<div>
+    <form class="reactiveForm" [formGroup]="requestForm" (ngSubmit)="send_request()">
+        <div class="example-container">
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Create new request</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Method</mat-label>
+                                <mat-select (valueChange)="valueChanged($event)">
+                                    <mat-option *ngFor="let method of methods"  [value]="method">
+                                        {{method}}
+                                    </mat-option>
+                                  </mat-select>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Request</mat-label>
+                                <input matInput formControlName="request">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-dialog-actions>
+                                <button type="submit"  mat-raised-button color="success">Send request</button>
+                            </mat-dialog-actions>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            <mat-form-field appearance="fill">
+                                <mat-label>Body</mat-label>
+                                <textarea matInput formControlName="body" style="height:300px;" matTooltip="tooltip"></textarea>
+                            </mat-form-field>
+                        </td>
+                        <td >
+                            <mat-form-field appearance="fill">
+                                <mat-label>Result</mat-label>
+                                <textarea matInput formControlName="result" style="height:300px;"></textarea>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                           <textarea disabled > Example for body input:
+                            {"id": 1,
+                            "name": "ime",
+                            "list": [1,2,3],
+                            "obj": {"id": 2}
+                            }</textarea>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+    
+    
+    </div>
+</form>
+</div>
