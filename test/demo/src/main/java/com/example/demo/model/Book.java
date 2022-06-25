@@ -39,6 +39,7 @@ public class Book {
    
 	
 	@Column
+	@Enumerated(EnumType.STRING)
 	private Age  ageRecommendation ;
    
 
