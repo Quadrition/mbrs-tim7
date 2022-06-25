@@ -1,6 +1,7 @@
 package ${class.typePackage};
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Date;
 
 <#assign mylist=class.typePackage?split(".")>
@@ -38,7 +39,7 @@ ${class.visibility} class ${class.name}Controller {
 	
 	
 	@RequestMapping(method = RequestMethod.GET)
-	ResponseEntity<List<${class.name}DTO>> get${class.name}List () {
+	ResponseEntity<ArrayList<${class.name}DTO>> get${class.name}List () {
 
 		List<${class.name}> ${class.name?uncap_first}List = ${class.name?uncap_first}Service.findAll();
 	
@@ -56,7 +57,7 @@ ${class.visibility} class ${class.name}Controller {
 	}
 	
 
-	
+	<#if class.uiClass?? &&  class.uiClass.create == true>
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<${class.name}DTO> add(@RequestBody @Valid ${class.name}DTO new${class.name}) {
 
@@ -64,44 +65,46 @@ ${class.visibility} class ${class.name}Controller {
 
 		return new ResponseEntity<>(${class.name?cap_first}Mapper.toDto(saved${class.name}), HttpStatus.CREATED);
 	}
-	
-	
+	</#if>
+	<#if class.uiClass?? && class.uiClass.update>
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = "application/json")
 	public ResponseEntity<${class.name}DTO> edit(@RequestBody @Valid ${class.name}DTO ${class.name?uncap_first}, @PathVariable Long id) {
 
 		if (id != ${class.name?uncap_first}.getId()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-
-		${class.name} persisted = ${class.name?uncap_first}Service.save(${class.name?uncap_first});
-
+		${class.name} persisted;
+		try {
+			persisted = ${class.name?uncap_first}Service.update(${class.name?uncap_first});
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<>(${class.name?cap_first}Mapper.toDto(persisted), HttpStatus.OK);
 	}
-
+	</#if>
 	
+	<#if class.uiClass?? && class.uiClass.delete == true >
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	ResponseEntity<${class.name}DTO> delete(@PathVariable Long id) {
-		${class.name} deleted = ${class.name?uncap_first}Service.remove(id);
+		${class.name} deleted;
+		try {
+			deleted = ${class.name?uncap_first}Service.remove(id);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		
 
 		return new ResponseEntity<>(${class.name?cap_first}Mapper.toDto(deleted), HttpStatus.OK);
 	}
+	</#if>
 	
 	<#list properties as property>
 		<#if property.name != "id" && property.name != "password" && property.upper == 1 && property.association == false >
 	@RequestMapping(value = "/filterBy${property.name?cap_first}/{value}", method = RequestMethod.GET)
-	ResponseEntity<List<${class.name}DTO>> get${class.name}ListBy${property.name?cap_first}(@PathVariable <#if property.type.name == "date"> Date <#else>${property.type.name} </#if> value) {
+	ResponseEntity<ArrayList<${class.name}DTO>> get${class.name}ListBy${property.name?cap_first}(@PathVariable <#if property.type.name == "date"> Date <#else>${property.type.name} </#if> value) {
 
 		List<${class.name}> ${class.name?uncap_first}List = ${class.name?uncap_first}Service.findBy${property.name?cap_first}(value);
-			
-		return new ResponseEntity<>(${class.name?cap_first}Mapper.toDtoList(${class.name?uncap_first}List), HttpStatus.OK);
-	}
-
-		</#if>
-		<#if property.association == true && property.upper == 1>
-	@RequestMapping(value = "/filterBy<#if property.name == "">${property.type.name}<#else>${property.name?cap_first}</#if>Id/{id}", method = RequestMethod.GET)
-	ResponseEntity<List<${class.name}DTO>> get${class.name}ListBy<#if property.name != "">${property.name?cap_first}<#else>${property.type.name}</#if>Id(@PathVariable Long id) {
-
-		List<${class.name}> ${class.name?uncap_first}List = ${class.name?uncap_first}Service.findBy<#if property.name != "">${property.name?cap_first}<#else>${property.type.name}</#if>(id);
 			
 		return new ResponseEntity<>(${class.name?cap_first}Mapper.toDtoList(${class.name?uncap_first}List), HttpStatus.OK);
 	}

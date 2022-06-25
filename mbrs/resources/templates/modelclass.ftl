@@ -1,8 +1,6 @@
 package ${class.typePackage};
 
-
 <#assign mylist=class.typePackage?split(".")>
-
 
 <#assign x=mylist?size-2>
 <#assign baseDir=mylist[0]>
@@ -12,15 +10,15 @@ package ${class.typePackage};
 </#list>
 
 import ${baseDir}.model.*;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
 
 @Entity
-@Table(name="${class.name?uncap_first}")
+@Table(name="${class.name?uncap_first}_table")
 ${class.visibility} class ${class.name} { 
 
 	@Id
@@ -30,7 +28,7 @@ ${class.visibility} class ${class.name} {
 <#list properties as property>
 	<#if property.upper == -1 >  
 	@OneToMany
-	${property.visibility} Set<<#if property.type.name == "date" > Date <#else>${property.type.name} </#if>> <#if property.name != "" > ${property.name} <#else> ${property.type.name?uncap_first}</#if> = new HashSet<${property.type.name}>();
+	${property.visibility} List<<#if property.type.name == "date" > Date <#else>${property.type.name} </#if>> <#if property.name != "" > ${property.name} <#else> ${property.type.name?uncap_first}</#if> = new ArrayList<${property.type.name}>();
 
     <#elseif property.upper == 1 > 
 	
@@ -54,7 +52,7 @@ ${class.visibility} class ${class.name} {
 
 	public ${class.name}(){}
       
-	public ${class.name}(Long id,<#list properties as property><#if property.upper == 1><#if property.type.name == "date" > Date <#else>${property.type.name} </#if>  <#if property.name != "" >${property.name} <#else>${property.type.name?uncap_first}</#if><#elseif property.upper == -1 >Set<<#if property.type.name == "date" > Date <#else>${property.type.name} </#if>> <#if property.name != "" > ${property.name} <#else> ${property.type.name?uncap_first}</#if><#else><#list 1..property.upper as i>${property.type.name} ${property.name}${i}<#if i < property.upper>,</#if></#list></#if><#if property_has_next>,</#if></#list>
+	public ${class.name}(Long id,<#list properties as property><#if property.upper == 1><#if property.type.name == "date" > Date <#else>${property.type.name} </#if>  <#if property.name != "" >${property.name} <#else>${property.type.name?uncap_first}</#if><#elseif property.upper == -1 >ArrayList<<#if property.type.name == "date" > Date <#else>${property.type.name} </#if>> <#if property.name != "" > ${property.name} <#else> ${property.type.name?uncap_first}</#if><#else><#list 1..property.upper as i>${property.type.name} ${property.name}${i}<#if i < property.upper>,</#if></#list></#if><#if property_has_next>,</#if></#list>
 		){
 		this.id = id; 
 		<#list properties as property>
@@ -79,11 +77,11 @@ ${class.visibility} class ${class.name} {
 	}
 <#list properties as property>
 	<#if property.upper == -1 >   
-     public Set<${property.type.name}> get${property.name?cap_first}(){
+     public List<${property.type.name}> get${property.name?cap_first}(){
           return ${property.name};
      }
       
-     public void set${property.name?cap_first}( Set<${property.type.name}> ${property.name}){
+     public void set${property.name?cap_first}(List<${property.type.name}> ${property.name}){
           this.${property.name} = ${property.name};
      }
       
