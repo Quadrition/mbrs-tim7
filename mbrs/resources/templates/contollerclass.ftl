@@ -36,18 +36,13 @@ ${class.visibility} class ${class.name}Controller {
 	@Autowired
 	private ${class.name}Service ${class.name?uncap_first}Service;
 	
-	@Autowired
-	private ${class.name}To${class.name}DTO toDTO;
-	
-	@Autowired
-	private ${class.name}DTOTo${class.name} to${class.name};
 	
 	@RequestMapping(method = RequestMethod.GET)
 	ResponseEntity<List<${class.name}DTO>> get${class.name}List () {
 
 		List<${class.name}> ${class.name?uncap_first}List = ${class.name?uncap_first}Service.findAll();
 	
-		return new ResponseEntity<>(toDTO.convert(${class.name?uncap_first}List), HttpStatus.OK);
+		return new ResponseEntity<>(${class.name?cap_first}Mapper.toDtoList(${class.name?uncap_first}List), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -57,7 +52,7 @@ ${class.visibility} class ${class.name}Controller {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<>(toDTO.convert(${class.name?uncap_first}), HttpStatus.OK);
+		return new ResponseEntity<>(${class.name?cap_first}Mapper.toDto(${class.name?uncap_first}), HttpStatus.OK);
 	}
 	
 
@@ -65,9 +60,9 @@ ${class.visibility} class ${class.name}Controller {
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<${class.name}DTO> add(@RequestBody @Valid ${class.name}DTO new${class.name}) {
 
-		${class.name} saved${class.name} = ${class.name?uncap_first}Service.save(to${class.name}.convert(new${class.name}));
+		${class.name} saved${class.name} = ${class.name?uncap_first}Service.save(new${class.name});
 
-		return new ResponseEntity<>(toDTO.convert(saved${class.name}), HttpStatus.CREATED);
+		return new ResponseEntity<>(${class.name?cap_first}Mapper.toDto(saved${class.name}), HttpStatus.CREATED);
 	}
 	
 	
@@ -78,9 +73,9 @@ ${class.visibility} class ${class.name}Controller {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		${class.name} persisted = ${class.name?uncap_first}Service.save(to${class.name}.convert(${class.name?uncap_first}));
+		${class.name} persisted = ${class.name?uncap_first}Service.save(${class.name?uncap_first});
 
-		return new ResponseEntity<>(toDTO.convert(persisted), HttpStatus.OK);
+		return new ResponseEntity<>(${class.name?cap_first}Mapper.toDto(persisted), HttpStatus.OK);
 	}
 
 	
@@ -88,7 +83,7 @@ ${class.visibility} class ${class.name}Controller {
 	ResponseEntity<${class.name}DTO> delete(@PathVariable Long id) {
 		${class.name} deleted = ${class.name?uncap_first}Service.remove(id);
 
-		return new ResponseEntity<>(toDTO.convert(deleted), HttpStatus.OK);
+		return new ResponseEntity<>(${class.name?cap_first}Mapper.toDto(deleted), HttpStatus.OK);
 	}
 	
 	<#list properties as property>
@@ -98,7 +93,7 @@ ${class.visibility} class ${class.name}Controller {
 
 		List<${class.name}> ${class.name?uncap_first}List = ${class.name?uncap_first}Service.findBy${property.name?cap_first}(value);
 			
-		return new ResponseEntity<>(toDTO.convert(${class.name?uncap_first}List), HttpStatus.OK);
+		return new ResponseEntity<>(${class.name?cap_first}Mapper.toDtoList(${class.name?uncap_first}List), HttpStatus.OK);
 	}
 
 		</#if>
@@ -108,7 +103,7 @@ ${class.visibility} class ${class.name}Controller {
 
 		List<${class.name}> ${class.name?uncap_first}List = ${class.name?uncap_first}Service.findBy<#if property.name != "">${property.name?cap_first}<#else>${property.type.name}</#if>(id);
 			
-		return new ResponseEntity<>(toDTO.convert(${class.name?uncap_first}List), HttpStatus.OK);
+		return new ResponseEntity<>(${class.name?cap_first}Mapper.toDtoList(${class.name?uncap_first}List), HttpStatus.OK);
 	}
 
 		</#if>
