@@ -16,7 +16,7 @@ export class RequestService {
     ) { }
 
     post_method(request: any, body: any): Observable<any>{
-        return this.http.post(request, body, {headers: this.headers, responseType: 'json'});
+        return this.http.post(request, body, {headers: this.headers, responseType: 'json'}).pipe(map(res => res));
     }
 
     get_method(request: any, ): Observable<any>{
@@ -24,11 +24,11 @@ export class RequestService {
     }
 
     put_method(request: any, body: any): Observable<any>{
-        return this.http.put(request, body, {headers: this.headers, responseType: 'json'});
+        return this.http.put(request, body, {headers: this.headers, responseType: 'json'}).pipe(map(res => res));
     }
     
     delete_method(request: any): Observable<any>{
-        return this.http.delete(request, {headers: this.headers, responseType: 'json'});
+        return this.http.delete(request, {headers: this.headers, responseType: 'json'}).pipe(map(res => res));
     }
 
 }

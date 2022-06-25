@@ -64,9 +64,13 @@ export class RequestPageComponent implements OnInit {
     this.requestService.get_method(this.requestForm.get("request")?.value).subscribe(
       res => {
         console.log(res);
+        this.requestForm.get("result")?.setValue(JSON.stringify(res));
+      }, error =>{
+        this.requestForm.get("result")?.setValue("ERROR "+JSON.stringify(error));
       }
     )
   }
+
 
   post_method(): void{
     console.log("POST method choosed")
@@ -75,7 +79,10 @@ export class RequestPageComponent implements OnInit {
     console.log(this.body_json);
     this.requestService.post_method(this.requestForm.get("request")?.value, this.body_json).subscribe(
       res => {
-        console.log(res.body)
+        console.log(res)
+        this.requestForm.get("result")?.setValue(JSON.stringify(res));
+      }, error =>{
+        this.requestForm.get("result")?.setValue("ERROR "+JSON.stringify(error));
       }
     )
   }
@@ -86,7 +93,10 @@ export class RequestPageComponent implements OnInit {
     this.body_json = JSON.parse(this.requestForm.get("body")?.value);
     this.requestService.put_method(this.requestForm.get("request")?.value, this.body_json).subscribe(
       res => {
-        console.log(res.body)
+        console.log(res);
+        this.requestForm.get("result")?.setValue(JSON.stringify(res));
+      }, error =>{
+        this.requestForm.get("result")?.setValue("ERROR "+JSON.stringify(error));
       }
     )
   }
@@ -96,7 +106,10 @@ export class RequestPageComponent implements OnInit {
     console.log(this.requestForm.get("request")?.value)
     this.requestService.delete_method(this.requestForm.get("request")?.value).subscribe(
       res => {
-        console.log(res.body)
+        console.log(res);
+        this.requestForm.get("result")?.setValue(JSON.stringify(res));
+      }, error =>{
+        this.requestForm.get("result")?.setValue("ERROR "+JSON.stringify(error));
       }
     )
 
