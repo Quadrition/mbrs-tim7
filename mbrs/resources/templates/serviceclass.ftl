@@ -33,9 +33,9 @@ public interface ${class.name}Service {
 	${class.name} save(${class.name}DTO ${class.name?uncap_first});
 	</#if>
 	<#if class.uiClass?? && (class.uiClass.update == true)>
-	${class.name} update(${class.name}DTO ${class.name?uncap_first});
+	${class.name} update(${class.name}DTO ${class.name?uncap_first}) throws Exception;
 	</#if>
 	<#if class.uiClass?? && ( class.uiClass.delete == true)>
-	${class.name} remove(Long id);
+	${class.name} remove(Long id)  throws Exception;
 	</#if>
 }
