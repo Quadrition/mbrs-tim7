@@ -11,17 +11,14 @@ import com.example.demo.model.*;
 
 public class ReviewDTO{
 	private Long id;
-	     private BookDTO  book ;
-		
 	  	 private String  comment;
 		
 	
 	
 	
 	public ReviewDTO(){}
-	public ReviewDTO(Long id, BookDTO  book,String comment){
+	public ReviewDTO(Long id, String comment){
 		this.id = id;
-			this.book   = book  ;
 			this.comment   = comment  ;
 		}
 	
@@ -35,16 +32,6 @@ public class ReviewDTO{
 		this.id = id;
 	}
 	
-	    public BookDTO getBook (){
-	           return book ;
-	    }
-	      
-	    public void setBook (BookDTO  book ){
-	           this.book  = book ;
-	    }
-	    
-	      
-	     
 	    public String  getComment (){
 	           return comment ;
 	    }

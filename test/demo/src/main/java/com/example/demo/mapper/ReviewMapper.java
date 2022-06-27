@@ -13,14 +13,14 @@ public class ReviewMapper {
 
 	public static ReviewDTO toDto(Review entity){
 		ReviewDTO retVal = new ReviewDTO();
-		retVal.setBook(BookMapper.toDto(entity.getBook()));
+		retVal.setId(entity.getId());
 		retVal.setComment(entity.getComment());
 		return retVal;
 	}
 	
 	public static Review toEntity(ReviewDTO dto) {
 		Review retVal = new Review();
-		retVal.setBook(BookMapper.toEntity(dto.getBook()));
+		retVal.setId(dto.getId());
 		retVal.setComment(dto.getComment());
 		return retVal;
 	}

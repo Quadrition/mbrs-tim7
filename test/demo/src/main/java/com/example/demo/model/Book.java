@@ -20,15 +20,8 @@ public class Book {
 
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	private Library  library ;
-   
-	
-	@ManyToOne(fetch=FetchType.LAZY)
 	private Category  category ;
    
-	@OneToMany
-	private List<Review >  reviews  = new ArrayList<Review>();
-
 	
 	@Column
 	private String  title ;
@@ -42,18 +35,20 @@ public class Book {
 	@Enumerated(EnumType.STRING)
 	private Age  ageRecommendation ;
    
+	@OneToMany
+	private List<Review >  reviews  = new ArrayList<Review>();
+
 
 	public Book(){}
       
-	public Book(Long id,Library   library ,Category   category ,ArrayList<Review >  reviews ,String   title ,int   year ,Age   ageRecommendation 
+	public Book(Long id,Category   category ,String   title ,int   year ,Age   ageRecommendation ,ArrayList<Review >  reviews 
 		){
 		this.id = id; 
-		this.library  =  library ;
 		this.category  =  category ;
-		this.reviews   =  reviews  ;
 		this.title  =  title ;
 		this.year  =  year ;
 		this.ageRecommendation  =  ageRecommendation ;
+		this.reviews   =  reviews  ;
 		}
       
 	public Long getId(){
@@ -63,28 +58,12 @@ public class Book {
 	public void setId(Long id){
 		this.id = id;
 	}
-     public Library getLibrary(){
-          return library;
-     }
-      
-     public void setLibrary(Library library){
-          this.library = library;
-     }
-      
      public Category getCategory(){
           return category;
      }
       
      public void setCategory(Category category){
           this.category = category;
-     }
-      
-     public List<Review> getReviews(){
-          return reviews;
-     }
-      
-     public void setReviews(List<Review> reviews){
-          this.reviews = reviews;
      }
       
      public String getTitle(){
@@ -109,6 +88,14 @@ public class Book {
       
      public void setAgeRecommendation(Age ageRecommendation){
           this.ageRecommendation = ageRecommendation;
+     }
+      
+     public List<Review> getReviews(){
+          return reviews;
+     }
+      
+     public void setReviews(List<Review> reviews){
+          this.reviews = reviews;
      }
       
 

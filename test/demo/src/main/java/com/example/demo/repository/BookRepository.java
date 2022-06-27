@@ -16,12 +16,7 @@ import com.example.demo.model.*;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
 
-		List<Book> findByLibrary(Long id);
-	
-		
 		List<Book> findByCategory(Long id);
-	
-		
 	
 		
 	
@@ -34,6 +29,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 		
 	
 	List<Book> findByAgeRecommendation(Age  ageRecommendation);
+	
+		
 	
 		
 }

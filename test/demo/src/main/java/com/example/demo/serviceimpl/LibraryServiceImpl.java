@@ -24,9 +24,6 @@ public class LibraryServiceImpl implements LibraryService{
 	@Autowired
 	private BookRepository bookReposiroty;
 	
-	@Autowired
-	private UserRepository userReposiroty;
-	
 	@Override
 	public Library findOne(Long id){
 		return libraryRepository.findById(id).orElse(null);
@@ -47,7 +44,6 @@ public class LibraryServiceImpl implements LibraryService{
 		Library newEntity = new Library();
 		newEntity.setName(library.getName());
 		// asocijacija bookReposiroty		
-		// asocijacija userReposiroty		
 		
 		return libraryRepository.save(newEntity);
 	}
@@ -60,7 +56,6 @@ public class LibraryServiceImpl implements LibraryService{
 		//update entity
 		existing.setName(library.getName());
 		// asocijacija bookRepository				
-		// asocijacija userRepository				
 		
 		return libraryRepository.save(existing);
 	}

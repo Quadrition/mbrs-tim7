@@ -25,18 +25,14 @@ public class Library {
 	@OneToMany
 	private List<Book >  books  = new ArrayList<Book>();
 
-	@OneToMany
-	private List<User >  users  = new ArrayList<User>();
-
 
 	public Library(){}
       
-	public Library(Long id,String   name ,ArrayList<Book >  books ,ArrayList<User >  users 
+	public Library(Long id,String   name ,ArrayList<Book >  books 
 		){
 		this.id = id; 
 		this.name  =  name ;
 		this.books   =  books  ;
-		this.users   =  users  ;
 		}
       
 	public Long getId(){
@@ -60,14 +56,6 @@ public class Library {
       
      public void setBooks(List<Book> books){
           this.books = books;
-     }
-      
-     public List<User> getUsers(){
-          return users;
-     }
-      
-     public void setUsers(List<User> users){
-          this.users = users;
      }
       
 

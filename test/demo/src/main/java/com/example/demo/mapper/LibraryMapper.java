@@ -13,17 +13,17 @@ public class LibraryMapper {
 
 	public static LibraryDTO toDto(Library entity){
 		LibraryDTO retVal = new LibraryDTO();
+		retVal.setId(entity.getId());
 		retVal.setName(entity.getName());
 		retVal.setBooks(BookMapper.toDtoList(entity.getBooks()));
-		retVal.setUsers(UserMapper.toDtoList(entity.getUsers()));
 		return retVal;
 	}
 	
 	public static Library toEntity(LibraryDTO dto) {
 		Library retVal = new Library();
+		retVal.setId(dto.getId());
 		retVal.setName(dto.getName());
 		retVal.setBooks(BookMapper.toEntityList(dto.getBooks()));
-		retVal.setUsers(UserMapper.toEntityList(dto.getUsers()));
 		return retVal;
 	}
 	

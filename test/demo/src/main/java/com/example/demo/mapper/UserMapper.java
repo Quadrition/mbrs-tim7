@@ -13,6 +13,7 @@ public class UserMapper {
 
 	public static UserDTO toDto(User entity){
 		UserDTO retVal = new UserDTO();
+		retVal.setId(entity.getId());
 		retVal.setFirstName(entity.getFirstName());
 		retVal.setLastName(entity.getLastName());
 		retVal.setLibrary(LibraryMapper.toDto(entity.getLibrary()));
@@ -21,6 +22,7 @@ public class UserMapper {
 	
 	public static User toEntity(UserDTO dto) {
 		User retVal = new User();
+		retVal.setId(dto.getId());
 		retVal.setFirstName(dto.getFirstName());
 		retVal.setLastName(dto.getLastName());
 		retVal.setLibrary(LibraryMapper.toEntity(dto.getLibrary()));

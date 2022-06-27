@@ -13,23 +13,23 @@ public class BookMapper {
 
 	public static BookDTO toDto(Book entity){
 		BookDTO retVal = new BookDTO();
-		retVal.setLibrary(LibraryMapper.toDto(entity.getLibrary()));
+		retVal.setId(entity.getId());
 		retVal.setCategory(CategoryMapper.toDto(entity.getCategory()));
-		retVal.setReviews(ReviewMapper.toDtoList(entity.getReviews()));
 		retVal.setTitle(entity.getTitle());
 		retVal.setYear(entity.getYear());
 		retVal.setAgeRecommendation(entity.getAgeRecommendation());
+		retVal.setReviews(ReviewMapper.toDtoList(entity.getReviews()));
 		return retVal;
 	}
 	
 	public static Book toEntity(BookDTO dto) {
 		Book retVal = new Book();
-		retVal.setLibrary(LibraryMapper.toEntity(dto.getLibrary()));
+		retVal.setId(dto.getId());
 		retVal.setCategory(CategoryMapper.toEntity(dto.getCategory()));
-		retVal.setReviews(ReviewMapper.toEntityList(dto.getReviews()));
 		retVal.setTitle(dto.getTitle());
 		retVal.setYear(dto.getYear());
 		retVal.setAgeRecommendation(dto.getAgeRecommendation());
+		retVal.setReviews(ReviewMapper.toEntityList(dto.getReviews()));
 		return retVal;
 	}
 	

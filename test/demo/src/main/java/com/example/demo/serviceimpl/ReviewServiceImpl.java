@@ -21,9 +21,6 @@ public class ReviewServiceImpl implements ReviewService{
 	@Autowired
 	private ReviewRepository reviewRepository;
 	
-	@Autowired
-	private BookRepository bookReposiroty;
-	
 	@Override
 	public Review findOne(Long id){
 		return reviewRepository.findById(id).orElse(null);
@@ -42,7 +39,6 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public Review save(ReviewDTO review){
 		Review newEntity = new Review();
-		newEntity.setBook(bookReposiroty.findById(review.getBook().getId()).orElse(null));	
 		newEntity.setComment(review.getComment());
 		
 		return reviewRepository.save(newEntity);
@@ -54,7 +50,6 @@ public class ReviewServiceImpl implements ReviewService{
 			throw new Exception("Review doesn't exist");
 		}
 		//update entity
-		existing.setBook(bookReposiroty.findById(review.getBook().getId()).orElse(null));	
 		existing.setComment(review.getComment());
 		
 		return reviewRepository.save(existing);

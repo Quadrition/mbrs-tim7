@@ -22,6 +22,4 @@ public interface LibraryRepository extends JpaRepository<Library, Long> {
 		
 	
 		
-	
-		
 }

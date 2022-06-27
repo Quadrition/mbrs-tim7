@@ -19,20 +19,15 @@ public class Review {
 	private Long id; 
 
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	private Book  book ;
-   
-	
 	@Column
 	private String  comment ;
    
 
 	public Review(){}
       
-	public Review(Long id,Book   book ,String   comment 
+	public Review(Long id,String   comment 
 		){
 		this.id = id; 
-		this.book  =  book ;
 		this.comment  =  comment ;
 		}
       
@@ -43,14 +38,6 @@ public class Review {
 	public void setId(Long id){
 		this.id = id;
 	}
-     public Book getBook(){
-          return book;
-     }
-      
-     public void setBook(Book book){
-          this.book = book;
-     }
-      
      public String getComment(){
           return comment;
      }

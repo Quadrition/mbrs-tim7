@@ -16,9 +16,6 @@ import com.example.demo.model.*;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-		List<Review> findByBook(Long id);
-	
-		
 	
 	List<Review> findByComment(String  comment);
 	

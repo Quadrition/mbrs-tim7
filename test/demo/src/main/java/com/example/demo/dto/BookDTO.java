@@ -11,11 +11,7 @@ import com.example.demo.model.*;
 
 public class BookDTO{
 	private Long id;
-	     private LibraryDTO  library ;
-		
 	     private CategoryDTO  category ;
-		
-	     private ArrayList<ReviewDTO>  reviews  = new ArrayList<ReviewDTO>();
 		
 	  	 private String  title;
 		
@@ -23,18 +19,19 @@ public class BookDTO{
 		
 	  	 private Age  ageRecommendation;
 		
+	     private ArrayList<ReviewDTO>  reviews  = new ArrayList<ReviewDTO>();
+		
 	
 	
 	
 	public BookDTO(){}
-	public BookDTO(Long id, LibraryDTO  library,CategoryDTO  category,ArrayList<ReviewDTO> reviews ,String title,int year,Age ageRecommendation){
+	public BookDTO(Long id, CategoryDTO  category,String title,int year,Age ageRecommendation,ArrayList<ReviewDTO> reviews ){
 		this.id = id;
-			this.library   = library  ;
 			this.category   = category  ;
-			this.reviews   =  reviews  ;
 			this.title   = title  ;
 			this.year   = year  ;
 			this.ageRecommendation   = ageRecommendation  ;
+			this.reviews   =  reviews  ;
 		}
 	
 	
@@ -47,16 +44,6 @@ public class BookDTO{
 		this.id = id;
 	}
 	
-	    public LibraryDTO getLibrary (){
-	           return library ;
-	    }
-	      
-	    public void setLibrary (LibraryDTO  library ){
-	           this.library  = library ;
-	    }
-	    
-	      
-	     
 	    public CategoryDTO getCategory (){
 	           return category ;
 	    }
@@ -67,13 +54,6 @@ public class BookDTO{
 	    
 	      
 	     
-	     public ArrayList<ReviewDTO> getReviews(){
-	           return  reviews ;
-	    }
-	      
-	    public void setReviews ( ArrayList<ReviewDTO>  reviews ){
-	           this.reviews  = reviews ;
-	    }
 	    public String  getTitle (){
 	           return title ;
 	    }
@@ -104,5 +84,12 @@ public class BookDTO{
 	    	
 	      
 	     
+	     public ArrayList<ReviewDTO> getReviews(){
+	           return  reviews ;
+	    }
+	      
+	    public void setReviews ( ArrayList<ReviewDTO>  reviews ){
+	           this.reviews  = reviews ;
+	    }
 
 }

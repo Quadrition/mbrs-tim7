@@ -22,9 +22,6 @@ public class BookServiceImpl implements BookService{
 	private BookRepository bookRepository;
 	
 	@Autowired
-	private LibraryRepository libraryReposiroty;
-	
-	@Autowired
 	private CategoryRepository categoryReposiroty;
 	
 	@Autowired
@@ -56,12 +53,11 @@ public class BookServiceImpl implements BookService{
 	@Override
 	public Book save(BookDTO book){
 		Book newEntity = new Book();
-		newEntity.setLibrary(libraryReposiroty.findById(book.getLibrary().getId()).orElse(null));	
 		newEntity.setCategory(categoryReposiroty.findById(book.getCategory().getId()).orElse(null));	
-		// asocijacija reviewReposiroty		
 		newEntity.setTitle(book.getTitle());
 		newEntity.setYear(book.getYear());
 		newEntity.setAgeRecommendation(book.getAgeRecommendation());
+		// asocijacija reviewReposiroty		
 		
 		return bookRepository.save(newEntity);
 	}
@@ -72,12 +68,11 @@ public class BookServiceImpl implements BookService{
 			throw new Exception("Book doesn't exist");
 		}
 		//update entity
-		existing.setLibrary(libraryReposiroty.findById(book.getLibrary().getId()).orElse(null));	
 		existing.setCategory(categoryReposiroty.findById(book.getCategory().getId()).orElse(null));	
-		// asocijacija reviewRepository				
 		existing.setTitle(book.getTitle());
 		existing.setYear(book.getYear());
 		existing.setAgeRecommendation(book.getAgeRecommendation());
+		// asocijacija reviewRepository				
 		
 		return bookRepository.save(existing);
 	}

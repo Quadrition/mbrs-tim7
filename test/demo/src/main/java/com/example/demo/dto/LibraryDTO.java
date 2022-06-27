@@ -15,17 +15,14 @@ public class LibraryDTO{
 		
 	     private ArrayList<BookDTO>  books  = new ArrayList<BookDTO>();
 		
-	     private ArrayList<UserDTO>  users  = new ArrayList<UserDTO>();
-		
 	
 	
 	
 	public LibraryDTO(){}
-	public LibraryDTO(Long id, String name,ArrayList<BookDTO> books ,ArrayList<UserDTO> users ){
+	public LibraryDTO(Long id, String name,ArrayList<BookDTO> books ){
 		this.id = id;
 			this.name   = name  ;
 			this.books   =  books  ;
-			this.users   =  users  ;
 		}
 	
 	
@@ -54,13 +51,6 @@ public class LibraryDTO{
 	      
 	    public void setBooks ( ArrayList<BookDTO>  books ){
 	           this.books  = books ;
-	    }
-	     public ArrayList<UserDTO> getUsers(){
-	           return  users ;
-	    }
-	      
-	    public void setUsers ( ArrayList<UserDTO>  users ){
-	           this.users  = users ;
 	    }
 
 }
