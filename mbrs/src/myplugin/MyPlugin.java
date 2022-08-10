@@ -39,6 +39,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		repoOptions();
 		controllerOptions();
 		dtoOptions();
+		angularMain();
 	}
 	
 	private void test() {
@@ -101,6 +102,12 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		GeneratorOptions addEditOptions = new GeneratorOptions("c:/temp", "addeditentity", "templates", "{0}.html", true, "addedit"); 				
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularAddEditEntityGenerator", addEditOptions);
 		addEditOptions.setTemplateDir(pluginDir + File.separator + addEditOptions.getTemplateDir());
+		
+	}
+		private void angularMain() {
+		GeneratorOptions mainOptions = new GeneratorOptions("c:/temp", "angularmain", "templates", "{0}.js", true, "angular"); 				
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularMainGenerator", mainOptions);
+		mainOptions.setTemplateDir(pluginDir + File.separator + mainOptions.getTemplateDir());
 		
 	}
 	

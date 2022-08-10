@@ -74,6 +74,7 @@ class GenerateAction extends MDAction{
 			generateMapper(analyzer, root, generatorOptions);
 			generateController(analyzer, root, generatorOptions);
 			generateAddEditEntity(analyzer, root, generatorOptions);
+			generateAngularMain(analyzer, root, generatorOptions);
 			
 
 
@@ -235,6 +236,13 @@ class GenerateAction extends MDAction{
 		angularAddEditGenerator.generate();
 	}
 
+	private void generateAngularMain(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
+		analyzer = new ModelAnalyzer(root, "templates");
+		analyzer.prepareModel();
+		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularMainGenerator");			
+		AngularGenerator angularMainGenerator = new AngularGenerator(generatorOptions);
+		angularMainGenerator.generateJSFile();
+	}
 
 	private void exportToXml() {
 		if (JOptionPane.showConfirmDialog(null, "Do you want to save FM Model?") == 
