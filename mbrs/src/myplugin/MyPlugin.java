@@ -30,6 +30,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		
 		//for test purpose only:
 		//test();
+		addEditEntity();
 		serviceOptions();
 		serviceImplOptions();
 		mapperOptions();
@@ -96,6 +97,16 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		dtoOptions.setTemplateDir(pluginDir + File.separator + dtoOptions.getTemplateDir());
 		
 	}
+	private void addEditEntity() {
+		GeneratorOptions addEditOptions = new GeneratorOptions("c:/temp", "addeditentity", "templates", "{0}.html", true, "addedit"); 				
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularAddEditEntityGenerator", addEditOptions);
+		addEditOptions.setTemplateDir(pluginDir + File.separator + addEditOptions.getTemplateDir());
+		
+	}
+	
+
+	
+
 	
 	private NMAction[] getSubmenuActions()
 	{

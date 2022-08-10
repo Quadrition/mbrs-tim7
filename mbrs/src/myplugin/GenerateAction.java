@@ -19,8 +19,8 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import myplugin.analyzer.AnalyzeException;
 import myplugin.analyzer.ModelAnalyzer;
+import myplugin.generator.AngularGenerator;
 import myplugin.generator.ControllerGenerator;
-import myplugin.generator.DtoGenerator;
 import myplugin.generator.MapperGenerator;
 import myplugin.generator.ModelGenerator;
 import myplugin.generator.RepoGenerator;
@@ -34,7 +34,7 @@ import myplugin.generator.options.ProjectOptions;
 /** Action that activate code generation */
 @SuppressWarnings("serial")
 class GenerateAction extends MDAction{
-	
+
 	String outputPath;
 	String parsedPath; //zbog importovanja paketa
 
@@ -43,25 +43,25 @@ class GenerateAction extends MDAction{
 	}
 
 	public void actionPerformed(ActionEvent evt) {
-		
+
 		if (Application.getInstance().getProject() == null) return;
 		Package root = Application.getInstance().getProject().getModel();
-		
+
 		if (root == null) return;
-	
+
 		//ModelAnalyzer analyzer = new ModelAnalyzer(root, "ejb");
 		ModelAnalyzer analyzer = null;
 		GeneratorOptions generatorOptions = null;
-		
+
 		try {
-//			analyzer.prepareModel();	
-//			GeneratorOptions go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EJBGenerator");			
-//			EJBGenerator generator = new EJBGenerator(go);
-//			generator.generate();
-//			/**  @ToDo: Also call other generators */ 
-//			JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() +
-//					                         ", package: " + go.getFilePackage());
-//			exportToXml();
+			//			analyzer.prepareModel();	
+			//			GeneratorOptions go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EJBGenerator");			
+			//			EJBGenerator generator = new EJBGenerator(go);
+			//			generator.generate();
+			//			/**  @ToDo: Also call other generators */ 
+			//			JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() +
+			//					                         ", package: " + go.getFilePackage());
+			//			exportToXml();
 			//JOptionPane.showMessageDialog( null, "CAO");
 			chooseLocation();
 			parsePath();
@@ -73,7 +73,10 @@ class GenerateAction extends MDAction{
 			generateServiceImpl(analyzer, root, generatorOptions);
 			generateMapper(analyzer, root, generatorOptions);
 			generateController(analyzer, root, generatorOptions);
+			generateAddEditEntity(analyzer, root, generatorOptions);
 			
+
+
 		} catch (AnalyzeException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		} 			
@@ -82,23 +85,23 @@ class GenerateAction extends MDAction{
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		chooser.setDialogTitle("Choose destination folder");
-        int status = chooser.showOpenDialog(null);
-        if (status == JFileChooser.APPROVE_OPTION) {
-            File file = chooser.getSelectedFile();
-            if (file == null) {
-            	outputPath = "C:/temp";
-                return;
-            }
+		int status = chooser.showOpenDialog(null);
+		if (status == JFileChooser.APPROVE_OPTION) {
+			File file = chooser.getSelectedFile();
+			if (file == null) {
+				outputPath = "C:/temp";
+				return;
+			}
 
-            String path = chooser.getSelectedFile().getAbsolutePath();
-            outputPath = path;
-            System.err.println("Putanjaaa "+ path);
+			String path = chooser.getSelectedFile().getAbsolutePath();
+			outputPath = path;
+			System.err.println("Putanjaaa "+ path);
 
-        }else {
-        	outputPath = null; //ukoliko je 1.put izabrao putanju, prilikom 2.generisanja ona ce biti tu pa treba vrednost vratiti na null
-        }
+		}else {
+			outputPath = null; //ukoliko je 1.put izabrao putanju, prilikom 2.generisanja ona ce biti tu pa treba vrednost vratiti na null
+		}
 	}
-	
+
 	private void parsePath() {
 		if(outputPath != null) {
 			String[] splited = outputPath.split("java"); //izgenerisana spring boot app uvek u sebi ima java folder "src\main\java"
@@ -114,10 +117,10 @@ class GenerateAction extends MDAction{
 		}else {
 			parsedPath = "temp."; //default path is C:\temp
 		}
-		
-		
+
+
 	}
-	
+
 	private void generateService(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions)
 			throws AnalyzeException {
 		analyzer = new ModelAnalyzer(root,parsedPath +"service");
@@ -177,9 +180,9 @@ class GenerateAction extends MDAction{
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
 		exportToXml();
-		
+
 	}
-	
+
 	private void generateRepo(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
 		analyzer = new ModelAnalyzer(root, parsedPath + "repository");
 		analyzer.prepareModel();
@@ -190,9 +193,9 @@ class GenerateAction extends MDAction{
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
 		exportToXml();
-		
+
 	}
-	
+
 	private void generateController(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
 		analyzer = new ModelAnalyzer(root, parsedPath +"controller");
 		analyzer.prepareModel();
@@ -203,9 +206,9 @@ class GenerateAction extends MDAction{
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
 		exportToXml();
-		
+
 	}
-	
+
 	private void generateDTO(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
 		analyzer = new ModelAnalyzer(root, parsedPath +"dto");
 		analyzer.prepareModel();
@@ -216,17 +219,31 @@ class GenerateAction extends MDAction{
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
 		exportToXml();
-		
+
 	}
+
+
 	
+	
+	private void generateEditAddEntity(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
+
+		analyzer = new ModelAnalyzer(root, "templates");
+		analyzer.prepareModel();
+
+		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularAddEditEntityGenerator");			
+		AngularGenerator angularAddEditGenerator = new AngularGenerator(generatorOptions);
+		angularAddEditGenerator.generate();
+	}
+
+
 	private void exportToXml() {
 		if (JOptionPane.showConfirmDialog(null, "Do you want to save FM Model?") == 
-			JOptionPane.OK_OPTION)
+				JOptionPane.OK_OPTION)
 		{	
 			JFileChooser jfc = new JFileChooser();
 			if (jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
 				String fileName = jfc.getSelectedFile().getAbsolutePath();
-			
+
 				XStream xstream = new XStream(new DomDriver());
 				BufferedWriter out;		
 				try {
@@ -234,7 +251,7 @@ class GenerateAction extends MDAction{
 							new FileOutputStream(fileName), "UTF8"));					
 					xstream.toXML(FMModel.getInstance().getClasses(), out);
 					xstream.toXML(FMModel.getInstance().getEnumerations(), out);
-					
+
 				} catch (UnsupportedEncodingException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());				
 				} catch (FileNotFoundException e) {
