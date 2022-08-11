@@ -41,6 +41,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		dtoOptions();
 		angularMain();
 		entityDisplay();
+		angularRoutes();
 	}
 	
 	private void test() {
@@ -117,6 +118,13 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularEntityDisplayGenerator", viewOptions);
 		viewOptions.setTemplateDir(pluginDir + File.separator + viewOptions.getTemplateDir());
 		
+	}
+
+	private void angularRoutes() {
+	// angular routes
+			GeneratorOptions angularRoutesOptions = new GeneratorOptions("c:/temp", "angularroutes", "templates", "{0}.js", true, "angular"); 				
+			angularRoutesOptions.setTemplateDir(pluginDir + File.separator + angularRoutesOptions.getTemplateDir()); //apsolutna putanja
+			ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularRoutesGenerator", angularRoutesOptions);
 	}
 	
 
