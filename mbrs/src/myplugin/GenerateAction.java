@@ -75,6 +75,8 @@ class GenerateAction extends MDAction{
 			generateController(analyzer, root, generatorOptions);
 			generateAddEditEntity(analyzer, root, generatorOptions);
 			generateAngularMain(analyzer, root, generatorOptions);
+			generateEntityDisplay(analyzer, root, generatorOptions);
+			
 			
 
 
@@ -242,6 +244,14 @@ class GenerateAction extends MDAction{
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularMainGenerator");			
 		AngularGenerator angularMainGenerator = new AngularGenerator(generatorOptions);
 		angularMainGenerator.generateJSFile();
+	}
+
+	private void generateEntityDisplay(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
+		analyzer = new ModelAnalyzer(root, "templates");
+		analyzer.prepareModel();
+		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularEntityDisplayGenerator");			
+		AngularGenerator angularEntityDisplayGenerator = new AngularGenerator(generatorOptions);
+		angularEntityDisplayGenerator.generate();
 	}
 
 	private void exportToXml() {

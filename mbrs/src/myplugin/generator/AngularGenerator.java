@@ -45,7 +45,9 @@ public class AngularGenerator extends BasicGenerator {
 		else if(templateName.startsWith("angularmain")) {
 			generatedFileName = "main";
 		}
-		
+		else if(templateName.startsWith("entitydisplay")) {
+			generatedFileName = "view" + fileNamePart;
+		}
 		String fullPath = outputPath
 				+ File.separator
 				+ (filePackage.isEmpty() ? "" : packageToPath(filePackage)

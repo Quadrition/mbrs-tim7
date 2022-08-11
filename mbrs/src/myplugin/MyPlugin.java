@@ -40,6 +40,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		controllerOptions();
 		dtoOptions();
 		angularMain();
+		entityDisplay();
 	}
 	
 	private void test() {
@@ -111,7 +112,12 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		
 	}
 	
-
+	private void entityDisplay() {
+		GeneratorOptions viewOptions = new GeneratorOptions("c:/temp", "entitydisplay", "templates", "{0}.html", true, "view"); 				
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularEntityDisplayGenerator", viewOptions);
+		viewOptions.setTemplateDir(pluginDir + File.separator + viewOptions.getTemplateDir());
+		
+	}
 	
 
 	
