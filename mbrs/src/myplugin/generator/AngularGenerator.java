@@ -54,6 +54,10 @@ public class AngularGenerator extends BasicGenerator {
 		else if(templateName.startsWith("entitylist")) {
 			generatedFileName = fileNamePartFirstLower + "List";
 		}
+		else if(templateName.startsWith("angularcontrollers")) {
+			generatedFileName = "main.controllers";
+		}
+		
 		String fullPath = outputPath
 				+ File.separator
 				+ (filePackage.isEmpty() ? "" : packageToPath(filePackage)

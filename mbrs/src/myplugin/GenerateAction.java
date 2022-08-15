@@ -78,6 +78,7 @@ class GenerateAction extends MDAction{
 			generateEntityDisplay(analyzer, root, generatorOptions);
 			generateAngularRoutes(analyzer, root, generatorOptions);
 			generateEntityList(analyzer, root, generatorOptions);
+			generateAngularController(analyzer, root, generatorOptions);
 			
 			
 
@@ -274,6 +275,19 @@ class GenerateAction extends MDAction{
 		angularEntityListPageGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
+	}
+
+	private void generateAngularController(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
+		analyzer = new ModelAnalyzer(root, "templates");
+		analyzer.prepareModel();
+
+		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularControllersGenerator");			
+		AngularGenerator angularControllersGenerator = new AngularGenerator(generatorOptions);
+		angularControllersGenerator.generateJSFile();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
+
+
 	}
 
 	private void exportToXml() {
