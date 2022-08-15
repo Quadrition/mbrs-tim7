@@ -77,6 +77,7 @@ class GenerateAction extends MDAction{
 			generateAngularMain(analyzer, root, generatorOptions);
 			generateEntityDisplay(analyzer, root, generatorOptions);
 			generateAngularRoutes(analyzer, root, generatorOptions);
+			generateEntityList(analyzer, root, generatorOptions);
 			
 			
 
@@ -229,7 +230,7 @@ class GenerateAction extends MDAction{
 
 	
 	
-	private void generateEditAddEntity(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
+	private void generateAddEditEntity(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
 
 		analyzer = new ModelAnalyzer(root, "templates");
 		analyzer.prepareModel();
@@ -262,6 +263,17 @@ class GenerateAction extends MDAction{
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularRoutesGenerator");			
 		AngularGenerator angularRoutesGenerator = new AngularGenerator(generatorOptions);
 		angularRoutesGenerator.generateJSFile();
+	}
+
+	private void generateEntityList(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
+		analyzer = new ModelAnalyzer(root, "templates");
+		analyzer.prepareModel();
+
+		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularEntityListPageGenerator");			
+		AngularGenerator angularEntityListPageGenerator = new AngularGenerator(generatorOptions);
+		angularEntityListPageGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
 	}
 
 	private void exportToXml() {

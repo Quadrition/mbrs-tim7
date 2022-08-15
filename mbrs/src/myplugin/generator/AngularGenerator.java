@@ -51,6 +51,9 @@ public class AngularGenerator extends BasicGenerator {
 		else if(templateName.startsWith("angularroutes")) {
 			generatedFileName = "main.routes";
 		}
+		else if(templateName.startsWith("entitylist")) {
+			generatedFileName = fileNamePartFirstLower + "List";
+		}
 		String fullPath = outputPath
 				+ File.separator
 				+ (filePackage.isEmpty() ? "" : packageToPath(filePackage)

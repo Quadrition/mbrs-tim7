@@ -22,12 +22,12 @@ import myplugin.generator.options.GeneratorOptions;
 public abstract class BasicGenerator {
 
 	private GeneratorOptions generatorOptions; 
-	private String outputPath;	
-	private String templateName;
+	protected String outputPath;	
+	protected String templateName;
 	private String templateDir;
-	private String outputFileName;
+	protected String outputFileName;
 	private boolean overwrite = false;
-	private String filePackage;
+	protected String filePackage;
 	private Configuration cfg;
 	private Template template;	
 	
