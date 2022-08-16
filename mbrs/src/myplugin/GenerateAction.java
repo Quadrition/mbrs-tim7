@@ -79,6 +79,7 @@ class GenerateAction extends MDAction{
 			generateAngularRoutes(analyzer, root, generatorOptions);
 			generateEntityList(analyzer, root, generatorOptions);
 			generateAngularController(analyzer, root, generatorOptions);
+			generateAngularService(analyzer, root, generatorOptions);
 			
 			
 
@@ -288,6 +289,14 @@ class GenerateAction extends MDAction{
 				+ generatorOptions.getOutputPath() + ", package: " + generatorOptions.getFilePackage());
 
 
+	}
+
+	private void generateAngularService(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
+		analyzer = new ModelAnalyzer(root, "templates");
+		analyzer.prepareModel();
+		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularServicesGenerator");			
+		AngularGenerator angularServicesGenerator = new AngularGenerator(generatorOptions);
+		angularServicesGenerator.generateJSFile();
 	}
 
 	private void exportToXml() {

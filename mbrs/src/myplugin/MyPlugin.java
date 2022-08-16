@@ -44,6 +44,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		angularRoutes();
 		entityList();
 		angularControllers();
+		angularService();
 	}
 	
 	private void test() {
@@ -140,6 +141,12 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 			angularControllersOptions.setTemplateDir(pluginDir + File.separator + angularControllersOptions.getTemplateDir()); //apsolutna putanja
 			ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularControllersGenerator", angularControllersOptions);
 			
+	}
+
+	private void angularService() {
+			GeneratorOptions angularServicesOptions = new GeneratorOptions("c:/temp", "angularservices", "templates", "{0}.js", true, "angular"); 				
+			angularServicesOptions.setTemplateDir(pluginDir + File.separator + angularServicesOptions.getTemplateDir()); //apsolutna putanja
+			ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularServicesGenerator", angularServicesOptions);
 	}
 
 	

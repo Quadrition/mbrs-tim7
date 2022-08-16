@@ -57,6 +57,9 @@ public class AngularGenerator extends BasicGenerator {
 		else if(templateName.startsWith("angularcontrollers")) {
 			generatedFileName = "main.controllers";
 		}
+		else if(templateName.startsWith("angularservices")) {
+			generatedFileName = "main.services";
+		}
 		
 		String fullPath = outputPath
 				+ File.separator
