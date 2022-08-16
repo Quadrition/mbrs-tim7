@@ -63,6 +63,9 @@ public class AngularGenerator extends BasicGenerator {
 		else if(templateName.startsWith("index")) {
 			generatedFileName = fileNamePart;
 		}
+		else if(templateName.startsWith("home")) {
+			generatedFileName = fileNamePart;
+		}
 		
 		String fullPath = outputPath
 				+ File.separator
@@ -125,6 +128,7 @@ public class AngularGenerator extends BasicGenerator {
 	}
 
 	public void generateJSFile() {
+		// Test skup
 		try {
 			super.generate();
 		} catch (IOException e) {		
@@ -154,7 +158,6 @@ public class AngularGenerator extends BasicGenerator {
 	}
 
 	public void generateIndexPage() {
-		// Test skup
 		try {
 			super.generate();
 		} catch (IOException e) {		
@@ -166,6 +169,33 @@ public class AngularGenerator extends BasicGenerator {
 		Map<String, Object> context = new HashMap<String, Object>();
 		try {
 			out = getWriter("index", getFilePackage());
+			if (out != null) {
+				context.clear();
+				context.put("classes", classes);
+				getTemplate().process(context, out);
+				out.flush();
+			}
+		} catch (TemplateException e) {	
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}	
+		catch (IOException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}	
+			
+	}
+
+	public void generateHomePage() {
+		try {
+			super.generate();
+		} catch (IOException e) {		
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		List<FMClass> classes = FMModel.getInstance().getClasses();
+		
+		Writer out;
+		Map<String, Object> context = new HashMap<String, Object>();
+		try {
+			out = getWriter("home", getFilePackage());
 			if (out != null) {
 				context.clear();
 				context.put("classes", classes);

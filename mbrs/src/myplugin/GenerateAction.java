@@ -80,7 +80,8 @@ class GenerateAction extends MDAction{
 			generateEntityList(analyzer, root, generatorOptions);
 			generateAngularController(analyzer, root, generatorOptions);
 			generateAngularService(analyzer, root, generatorOptions);
-			generateAngularIndex(analyzer, root, generatorOptions);			
+			generateAngularIndex(analyzer, root, generatorOptions);	
+			generateAngularHome(analyzer, root, generatorOptions);		
 			
 
 
@@ -306,6 +307,15 @@ class GenerateAction extends MDAction{
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularIndexPageGenerator");			
 		AngularGenerator angularIndexGenerator = new AngularGenerator(generatorOptions);
 		angularIndexGenerator.generateIndexPage();
+	}
+
+	private void generateAngularHome(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException  {
+		analyzer = new ModelAnalyzer(root, "templates");
+		analyzer.prepareModel();
+
+		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularHomePageGenerator");			
+		AngularGenerator angularHomeGenerator = new AngularGenerator(generatorOptions);
+		angularHomeGenerator.generateHomePage();
 	}
 
 	private void exportToXml() {

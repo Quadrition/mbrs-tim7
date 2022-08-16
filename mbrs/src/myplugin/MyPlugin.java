@@ -46,6 +46,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		angularControllers();
 		angularService();
 		angularIndex();
+		angularHomePage();
 	}
 	
 	private void test() {
@@ -155,6 +156,12 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 	angularIndexPageOptions.setTemplateDir(pluginDir + File.separator + angularIndexPageOptions.getTemplateDir()); //apsolutna putanja
 	ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularIndexPageGenerator", angularIndexPageOptions);
 	}
+	
+	private void angularHomePage() {
+		GeneratorOptions angularHomePageOptions = new GeneratorOptions("c:/temp", "home", "templates", "{0}.html", true, "angular"); 				
+		angularHomePageOptions.setTemplateDir(pluginDir + File.separator + angularHomePageOptions.getTemplateDir()); //apsolutna putanja
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularHomePageGenerator", angularHomePageOptions);
+		}
 	
 	private NMAction[] getSubmenuActions()
 	{
