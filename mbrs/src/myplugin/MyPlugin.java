@@ -106,7 +106,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		
 	}
 	private void addEditEntity() {
-		GeneratorOptions addEditOptions = new GeneratorOptions("c:/temp", "addeditentity", "templates", "{0}.html", true, "addedit"); 				
+		GeneratorOptions addEditOptions = new GeneratorOptions("c:/temp", "addeditentity", "templates", "{0}.html", true, "partial"); 				
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularAddEditEntityGenerator", addEditOptions);
 		addEditOptions.setTemplateDir(pluginDir + File.separator + addEditOptions.getTemplateDir());
 		
@@ -119,7 +119,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 	}
 	
 	private void entityDisplay() {
-		GeneratorOptions viewOptions = new GeneratorOptions("c:/temp", "entitydisplay", "templates", "{0}.html", true, "view"); 				
+		GeneratorOptions viewOptions = new GeneratorOptions("c:/temp", "entitydisplay", "templates", "{0}.html", true, "partial"); 				
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularEntityDisplayGenerator", viewOptions);
 		viewOptions.setTemplateDir(pluginDir + File.separator + viewOptions.getTemplateDir());
 		
@@ -133,7 +133,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 	}
 	
 	private void entityList() {
-			GeneratorOptions angularEntityListPageOptions = new GeneratorOptions("c:/temp", "entitylist", "templates", "{0}.html", true, "angular"); 				
+			GeneratorOptions angularEntityListPageOptions = new GeneratorOptions("c:/temp", "entitylist", "templates", "{0}.html", true, "partial"); 				
 			angularEntityListPageOptions.setTemplateDir(pluginDir + File.separator + angularEntityListPageOptions.getTemplateDir()); //apsolutna putanja
 			ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularEntityListPageGenerator", angularEntityListPageOptions);
 	}
@@ -158,7 +158,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 	}
 	
 	private void angularHomePage() {
-		GeneratorOptions angularHomePageOptions = new GeneratorOptions("c:/temp", "home", "templates", "{0}.html", true, "angular"); 				
+		GeneratorOptions angularHomePageOptions = new GeneratorOptions("c:/temp", "home", "templates", "{0}.html", true, "partial"); 				
 		angularHomePageOptions.setTemplateDir(pluginDir + File.separator + angularHomePageOptions.getTemplateDir()); //apsolutna putanja
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularHomePageGenerator", angularHomePageOptions);
 		}

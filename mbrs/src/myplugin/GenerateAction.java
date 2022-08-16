@@ -37,7 +37,7 @@ class GenerateAction extends MDAction{
 
 	String outputPath;
 	String parsedPath; //zbog importovanja paketa
-
+	String htmlPath;
 	public GenerateAction(String name) {			
 		super("", name, null, null);		
 	}
@@ -98,16 +98,30 @@ class GenerateAction extends MDAction{
 			File file = chooser.getSelectedFile();
 			if (file == null) {
 				outputPath = "C:/temp";
+				htmlPath = "C:/temp";
 				return;
 			}
 
 			String path = chooser.getSelectedFile().getAbsolutePath();
 			outputPath = path;
 			System.err.println("Putanjaaa "+ path);
+			setHtmlPath(path);
+			System.err.println("HTML putanja "+ htmlPath);
+
 
 		}else {
 			outputPath = null; //ukoliko je 1.put izabrao putanju, prilikom 2.generisanja ona ce biti tu pa treba vrednost vratiti na null
+			htmlPath = null;
+
 		}
+	}
+	
+	private void setHtmlPath(String path) {
+		String[] splited = outputPath.split("java"); //izgenerisana spring boot app uvek u sebi ima java folder "src\main\java"
+		String tempPath = splited[0];
+		
+		htmlPath = tempPath + "\\webapp\\static\\app\\html";
+		
 	}
 
 	private void parsePath() {
@@ -239,6 +253,7 @@ class GenerateAction extends MDAction{
 		analyzer.prepareModel();
 
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularAddEditEntityGenerator");			
+		generatorOptions.setOutputPath(htmlPath);
 		AngularGenerator angularAddEditGenerator = new AngularGenerator(generatorOptions);
 		angularAddEditGenerator.generate();
 	}
@@ -255,6 +270,7 @@ class GenerateAction extends MDAction{
 		analyzer = new ModelAnalyzer(root, "templates");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularEntityDisplayGenerator");			
+		generatorOptions.setOutputPath(htmlPath);
 		AngularGenerator angularEntityDisplayGenerator = new AngularGenerator(generatorOptions);
 		angularEntityDisplayGenerator.generate();
 	}
@@ -273,6 +289,7 @@ class GenerateAction extends MDAction{
 		analyzer.prepareModel();
 
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularEntityListPageGenerator");			
+		generatorOptions.setOutputPath(htmlPath);
 		AngularGenerator angularEntityListPageGenerator = new AngularGenerator(generatorOptions);
 		angularEntityListPageGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
@@ -314,6 +331,8 @@ class GenerateAction extends MDAction{
 		analyzer.prepareModel();
 
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularHomePageGenerator");			
+		generatorOptions.setOutputPath(htmlPath);
+
 		AngularGenerator angularHomeGenerator = new AngularGenerator(generatorOptions);
 		angularHomeGenerator.generateHomePage();
 	}
