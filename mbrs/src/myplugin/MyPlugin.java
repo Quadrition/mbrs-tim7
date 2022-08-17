@@ -105,6 +105,9 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		dtoOptions.setTemplateDir(pluginDir + File.separator + dtoOptions.getTemplateDir());
 		
 	}
+	
+	
+	//  * * * FRONTEND * * *
 	private void addEditEntity() {
 		GeneratorOptions addEditOptions = new GeneratorOptions("c:/temp", "addeditentity", "templates", "{0}.html", true, "partial"); 				
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularAddEditEntityGenerator", addEditOptions);
@@ -112,7 +115,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		
 	}
 		private void angularMain() {
-		GeneratorOptions mainOptions = new GeneratorOptions("c:/temp", "angularmain", "templates", "{0}.js", true, "angular"); 				
+		GeneratorOptions mainOptions = new GeneratorOptions("c:/temp", "angularmain", "templates", "{0}.js", true, "js"); 				
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularMainGenerator", mainOptions);
 		mainOptions.setTemplateDir(pluginDir + File.separator + mainOptions.getTemplateDir());
 		
@@ -126,8 +129,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 	}
 
 	private void angularRoutes() {
-	// angular routes
-			GeneratorOptions angularRoutesOptions = new GeneratorOptions("c:/temp", "angularroutes", "templates", "{0}.js", true, "angular"); 				
+			GeneratorOptions angularRoutesOptions = new GeneratorOptions("c:/temp", "angularroutes", "templates", "{0}.js", true, "js"); 				
 			angularRoutesOptions.setTemplateDir(pluginDir + File.separator + angularRoutesOptions.getTemplateDir()); //apsolutna putanja
 			ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularRoutesGenerator", angularRoutesOptions);
 	}
@@ -139,20 +141,20 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 	}
 
 	private void angularControllers() {
-			GeneratorOptions angularControllersOptions = new GeneratorOptions("c:/temp", "angularcontrollers", "templates", "{0}.js", true, "angular"); 				
+			GeneratorOptions angularControllersOptions = new GeneratorOptions("c:/temp", "angularcontrollers", "templates", "{0}.js", true, "js"); 				
 			angularControllersOptions.setTemplateDir(pluginDir + File.separator + angularControllersOptions.getTemplateDir()); //apsolutna putanja
 			ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularControllersGenerator", angularControllersOptions);
 			
 	}
 
 	private void angularService() {
-			GeneratorOptions angularServicesOptions = new GeneratorOptions("c:/temp", "angularservices", "templates", "{0}.js", true, "angular"); 				
+			GeneratorOptions angularServicesOptions = new GeneratorOptions("c:/temp", "angularservices", "templates", "{0}.js", true, "js"); 				
 			angularServicesOptions.setTemplateDir(pluginDir + File.separator + angularServicesOptions.getTemplateDir()); //apsolutna putanja
 			ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularServicesGenerator", angularServicesOptions);
 	}
 
 	private void angularIndex() {
-	GeneratorOptions angularIndexPageOptions = new GeneratorOptions("c:/temp", "index", "templates", "{0}.html", true, "angular"); 				
+	GeneratorOptions angularIndexPageOptions = new GeneratorOptions("c:/temp", "index", "templates", "{0}.html", true, "public"); 				
 	angularIndexPageOptions.setTemplateDir(pluginDir + File.separator + angularIndexPageOptions.getTemplateDir()); //apsolutna putanja
 	ProjectOptions.getProjectOptions().getGeneratorOptions().put("AngularIndexPageGenerator", angularIndexPageOptions);
 	}

@@ -38,6 +38,8 @@ class GenerateAction extends MDAction{
 	String outputPath;
 	String parsedPath; //zbog importovanja paketa
 	String htmlPath;
+	String indexPath;
+	String jsPath;
 	public GenerateAction(String name) {			
 		super("", name, null, null);		
 	}
@@ -99,6 +101,8 @@ class GenerateAction extends MDAction{
 			if (file == null) {
 				outputPath = "C:/temp";
 				htmlPath = "C:/temp";
+				indexPath = "C:/temp";
+				jsPath = "C:/temp";
 				return;
 			}
 
@@ -107,11 +111,17 @@ class GenerateAction extends MDAction{
 			System.err.println("Putanjaaa "+ path);
 			setHtmlPath(path);
 			System.err.println("HTML putanja "+ htmlPath);
+			setIndexPath(path);
+			System.err.println("Index putanja "+ htmlPath);
+			setJsPath(path);
+			System.err.println("Index putanja "+ htmlPath);
 
 
 		}else {
 			outputPath = null; //ukoliko je 1.put izabrao putanju, prilikom 2.generisanja ona ce biti tu pa treba vrednost vratiti na null
 			htmlPath = null;
+			indexPath = null;
+
 
 		}
 	}
@@ -121,6 +131,22 @@ class GenerateAction extends MDAction{
 		String tempPath = splited[0];
 		
 		htmlPath = tempPath + "\\webapp\\static\\app\\html";
+		
+	}
+	
+	private void setIndexPath(String path) {
+		String[] splited = outputPath.split("java"); //izgenerisana spring boot app uvek u sebi ima java folder "src\main\java"
+		String tempPath = splited[0];
+		
+		indexPath = tempPath + "\\resources";
+		
+	}
+	
+	private void setJsPath(String path) {
+		String[] splited = outputPath.split("java"); //izgenerisana spring boot app uvek u sebi ima java folder "src\main\java"
+		String tempPath = splited[0];
+		
+		jsPath = tempPath + "\\webapp\\static\\app";
 		
 	}
 
@@ -245,7 +271,7 @@ class GenerateAction extends MDAction{
 	}
 
 
-	
+	//  * * * FRONTEND * * *
 	
 	private void generateAddEditEntity(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
 
@@ -262,6 +288,7 @@ class GenerateAction extends MDAction{
 		analyzer = new ModelAnalyzer(root, "templates");
 		analyzer.prepareModel();
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularMainGenerator");			
+		generatorOptions.setOutputPath(jsPath);
 		AngularGenerator angularMainGenerator = new AngularGenerator(generatorOptions);
 		angularMainGenerator.generateJSFile();
 	}
@@ -278,8 +305,8 @@ class GenerateAction extends MDAction{
 	private void generateAngularRoutes(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
 		analyzer = new ModelAnalyzer(root, "templates");
 		analyzer.prepareModel();
-
-		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularRoutesGenerator");			
+		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularRoutesGenerator");	
+		generatorOptions.setOutputPath(jsPath);
 		AngularGenerator angularRoutesGenerator = new AngularGenerator(generatorOptions);
 		angularRoutesGenerator.generateJSFile();
 	}
@@ -287,7 +314,6 @@ class GenerateAction extends MDAction{
 	private void generateEntityList(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
 		analyzer = new ModelAnalyzer(root, "templates");
 		analyzer.prepareModel();
-
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularEntityListPageGenerator");			
 		generatorOptions.setOutputPath(htmlPath);
 		AngularGenerator angularEntityListPageGenerator = new AngularGenerator(generatorOptions);
@@ -299,8 +325,8 @@ class GenerateAction extends MDAction{
 	private void generateAngularController(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
 		analyzer = new ModelAnalyzer(root, "templates");
 		analyzer.prepareModel();
-
-		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularControllersGenerator");			
+		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularControllersGenerator");	
+		generatorOptions.setOutputPath(jsPath);
 		AngularGenerator angularControllersGenerator = new AngularGenerator(generatorOptions);
 		angularControllersGenerator.generateJSFile();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
@@ -312,7 +338,8 @@ class GenerateAction extends MDAction{
 	private void generateAngularService(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException {
 		analyzer = new ModelAnalyzer(root, "templates");
 		analyzer.prepareModel();
-		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularServicesGenerator");			
+		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularServicesGenerator");	
+		generatorOptions.setOutputPath(jsPath);
 		AngularGenerator angularServicesGenerator = new AngularGenerator(generatorOptions);
 		angularServicesGenerator.generateJSFile();
 	}
@@ -320,8 +347,8 @@ class GenerateAction extends MDAction{
 	private void generateAngularIndex(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException  {
 		analyzer = new ModelAnalyzer(root, "templates");
 		analyzer.prepareModel();
-
-		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularIndexPageGenerator");			
+		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularIndexPageGenerator");	
+		generatorOptions.setOutputPath(indexPath);
 		AngularGenerator angularIndexGenerator = new AngularGenerator(generatorOptions);
 		angularIndexGenerator.generateIndexPage();
 	}
@@ -329,10 +356,8 @@ class GenerateAction extends MDAction{
 	private void generateAngularHome(ModelAnalyzer analyzer, Package root, GeneratorOptions generatorOptions) throws AnalyzeException  {
 		analyzer = new ModelAnalyzer(root, "templates");
 		analyzer.prepareModel();
-
 		generatorOptions = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AngularHomePageGenerator");			
 		generatorOptions.setOutputPath(htmlPath);
-
 		AngularGenerator angularHomeGenerator = new AngularGenerator(generatorOptions);
 		angularHomeGenerator.generateHomePage();
 	}
